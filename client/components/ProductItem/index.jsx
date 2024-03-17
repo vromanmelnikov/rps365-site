@@ -64,6 +64,7 @@ export default function ProductItem({ product }) {
     if (typeID === null) {
       setError({ ...error, noTypeChoosen: true });
     } else {
+
       let newProduct = structuredClone(product);
       newProduct.type = product.types.filter((item) => item.id === typeID)[0];
       delete newProduct["types"];

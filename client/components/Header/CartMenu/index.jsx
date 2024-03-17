@@ -49,10 +49,7 @@ export default function CartMenu() {
           className={`${styles.menu} dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52`}
         >
           <ul className={`${styles.items} p-2 shadow bg-base-100`}>
-            {
-              products.length === 0 &&
-              <li>Корзина пуста</li>
-            }
+            {products.length === 0 && <li>Корзина пуста</li>}
             {products.map((item, index) => {
               console.log(item.type);
 
@@ -73,7 +70,10 @@ export default function CartMenu() {
             })}
           </ul>
           <span className={`${styles.cost}`}>{cost} руб.</span>
-          <button className="btn btn-primary w-full">Корзина</button>
+
+          <button className="btn btn-primary w-full">
+            <Link href={"/cart"}>Корзина</Link>
+          </button>
         </div>
       </div>
     </>
