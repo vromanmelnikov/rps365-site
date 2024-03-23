@@ -42,6 +42,7 @@ export default function ProductItem({ product }) {
   const [typeID, setTypeID] = useState(null);
   const [desc, setDesc] = useState("");
   const [cost, setCost] = useState(`${min}-${max} руб.`);
+  const [images, setImages] = useState([])
 
   function onTypeIDChange(id) {
     setTypeID(id);
@@ -55,10 +56,22 @@ export default function ProductItem({ product }) {
       const cost = `${type.cost} руб.`;
 
       setCost(cost);
-
       setDesc(type.description);
+
+      const images = type.images
+      setImages(images)
+    }
+    else {
+      const images = product.types.map(item => item.images[0])
+      setImages(images)
     }
   }, [typeID]);
+
+  useEffect(
+    ()=>{
+      console.log(images)
+    }, [images]
+  )
 
   function addProductToCart() {
     if (typeID === null) {
@@ -77,7 +90,7 @@ export default function ProductItem({ product }) {
   return (
     <section className={`${styles.main}`}>
       <div className={`${styles.photos}`}>
-        <Images />
+        <Images images={images}/>
       </div>
       <div className={`${styles.mainInfo}`}>
         <h1 className={`${styles.title}`}>{product.title}</h1>
@@ -109,9 +122,8 @@ export default function ProductItem({ product }) {
         <div className={`${styles.btns}`}>
           <button
             onClick={() => addProductToCart()}
-            className={`btn btn-primary mt-3 ${
-              error.noTypeChoosen === true && "btn-error"
-            }`}
+            className={`btn btn-primary mt-3 ${error.noTypeChoosen === true && "btn-error"
+              }`}
           >
             {error.noTypeChoosen === false
               ? "В корзину"

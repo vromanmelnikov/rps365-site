@@ -1,7 +1,9 @@
 import styles from "./item.module.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Image from "next/image";
 import Link from "next/link";
+import { STATIC_URL } from "shared/api.config";
 
 function getCostRange(types) {
   const costs = types.map((item) => item.cost);
@@ -14,13 +16,40 @@ function getCostRange(types) {
   return result;
 }
 
+function Photo({ image }) {
+
+  const URL = `${STATIC_URL}/${image}`
+
+  return (
+    <Image src={URL} width='1600' height='0' alt="Фото"/>
+  )
+}
+
+function Images({ images }) {
+
+  return (
+    <div className={`${styles.image}`}>
+      {/* {
+        images.map((item, index) => {
+          return (
+            <Photo key={index} image={item} />
+          )
+        })
+      } */}
+      <Photo image={images[0]} />
+    </div>
+  )
+}
+
 export default function Item({ item }) {
   const costRange = getCostRange(item.types);
+
+  const images = item.types.map(type => type.images[0])
 
   return (
     <div className={`${styles.item}`}>
       <Link href={`/product/${item.id}`}>
-        <div className={`${styles.image}`}></div>
+        <Images images={images} />
       </Link>
       <div className={`${styles.info}`}>
         <Link href={`/product/${item.id}`}>

@@ -31,7 +31,7 @@ server.post('/upload', (req, res) => {
  
 })
 
-const port = 8080
+const port = 8000
 server.listen(
     port, () => {
         console.log("Static-server! Port: http://localhost:" + port);

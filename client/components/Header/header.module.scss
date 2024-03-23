@@ -114,8 +114,12 @@
 
 .logo {
     height: 35px;
-    width: 75px;
     background-color: rgb(255, 255, 255) ;
+
+    img {
+        height: 100%;
+        width: auto;
+    }
 }
 
 .functionals {
@@ -154,10 +158,13 @@
 
     gap: 1.5rem;
 
-    li {
+    a {
         // height: 20px !important;
-        color: $white-color;
+        color: $white-color !important;
         cursor: pointer;
+
+        height: 100% !important;
+        box-sizing: border-box;
     }
 
     div.divider {

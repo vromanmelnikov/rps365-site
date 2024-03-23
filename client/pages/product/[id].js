@@ -1,12 +1,13 @@
 import Layout from "components/Layout";
 import Head from "next/head";
-import CatalogService from "shared/catalog.service";
 
 import styles from "./product.module.scss";
 import ProductItem from "components/ProductItem";
 import Link from "next/link";
 import useSWR from "swr";
 import { useState } from "react";
+import { ITEMS_URL } from "shared/api.config";
+import axios from "axios";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -41,9 +42,8 @@ export default function Product({ product }) {
 }
 
 export async function getStaticPaths() {
-  const catalogService = new CatalogService();
 
-  const items = await catalogService.getItems();
+  const items = (await axios.get(ITEMS_URL)).data
 
   const paths = items.map((item) => ({
     params: { id: item.id.toString() },
@@ -56,9 +56,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const catalogService = new CatalogService();
 
-  const product = await catalogService.getItemByID(parseInt(params.id));
+  const product = (await axios.get(`${ITEMS_URL}/${params.id}`)).data
 
   return {
     props: {

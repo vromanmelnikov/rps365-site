@@ -1,51 +1,49 @@
 import Image from 'next/image';
 import styles from './images.module.scss'
+import { useEffect, useState } from 'react';
+import { STATIC_URL } from 'shared/api.config';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export default function Images() {
+function Photo({ image, isCurrent }) {
+
+  const URL = `${STATIC_URL}/${image}`
+
   return (
-    <div className={`${styles.carousel} carousel carousel-center w-full p-4 space-x-4 bg-neutral rounded-box`}>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
-          className="rounded-box"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg"
-          className="rounded-box"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg"
-          className="rounded-box"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg"
-          className="rounded-box"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg"
-          className="rounded-box"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg"
-          className="rounded-box"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg"
-          className="rounded-box"
-        />
-      </div>
+    <Image style={isCurrent === false && { display: 'none' }} className={`${styles.image}`} src={URL} width='1600' height='0' />
+  )
+}
+
+export default function Images({ images }) {
+
+  const [current, setCurrent] = useState(0)
+
+  function changeCurrent(fleshCurrent) { 
+    if (fleshCurrent >= 0 && fleshCurrent < images.length) {
+      setCurrent(fleshCurrent)
+    }
+  }
+
+  useEffect(
+    ()=>{
+      setCurrent(0)
+    }, [images]
+  )
+
+  return (
+    <div className={`${styles.carousel}`}>
+      <button className={`${styles.leftArrow} btn`} onClick={() => changeCurrent(current - 1)}>
+        <ArrowBackIcon />
+      </button>
+      {
+        images.map((item, index) => {
+          return (
+            <Photo key={index} image={item} isCurrent={index === current} />
+          )
+        })
+      }
+      <button className={`${styles.rightArrow} btn`} onClick={() => changeCurrent(current + 1)}>
+        <ArrowBackIcon />
+      </button>
     </div>
   );
 }

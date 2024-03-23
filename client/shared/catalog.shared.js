@@ -1,8 +1,12 @@
 export const sortFilters = [
+
     {
-        name: 'По убыванию цены'
+        name: 'По возрастанию цены',
+        value: 'COST_UP'
     },
     {
-        name: 'По возрастанию цены'
-    }
+        name: 'По убыванию цены',
+        value: 'COST_DOWN'
+    },
 ]
+

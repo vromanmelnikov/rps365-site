@@ -6,6 +6,9 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PhoneEnabledOutlinedIcon from "@mui/icons-material/PhoneEnabledOutlined";
 import React from "react";
 import CartMenu from "./CartMenu";
+import { categories } from "shared/static/static";
+
+import logo from 'public/images/logo.jpg'
 
 export default function Header() {
   const links = [
@@ -15,23 +18,13 @@ export default function Header() {
     },
   ];
 
-  const tags = [
-    {
-      name: "Переходное",
-    },
-    {
-      name: "Соеденительное",
-    },
-    {
-      name: "Ремонтное",
-    },
-  ];
-
   return (
     <header className={styles.header}>
       <div className={styles.mainBack}>
         <section className={`${MainStyles.container} ${styles.main}`}>
-          <div className={styles.logo}>ЛОГОТИП</div>
+          <Link href='/' className={styles.logo}>
+            <Image src={logo} width="150" height='150' alt="RPS365"/>
+          </Link>
           <ul className={styles.links}>
             {links.map((item, index) => {
               return (
@@ -89,13 +82,13 @@ export default function Header() {
       <div className={styles.destinyBack}>
         <section className={`${MainStyles.container} ${styles.destiny}`}>
           <ul className={`${styles.tags}`}>
-            {tags.map((item, index) => {
+            {categories.map((item, index) => {
               return (
                 <React.Fragment key={index}>
-                  <li className={`btn btn-ghost`} key={index}>
+                  <Link href={item.href} className={`btn btn-ghost`} key={index}>
                     {item.name}
-                  </li>
-                  {index !== tags.length - 1 && (
+                  </Link>
+                  {index !== categories.length - 1 && (
                     <div className="divider divider-horizontal"></div>
                   )}
                 </React.Fragment>

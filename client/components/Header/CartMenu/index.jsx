@@ -70,10 +70,11 @@ export default function CartMenu() {
             })}
           </ul>
           <span className={`${styles.cost}`}>{cost} руб.</span>
-
-          <button className="btn btn-primary w-full">
-            <Link href={"/cart"}>Корзина</Link>
-          </button>
+          <Link href={"/cart"} className="w-full">
+            <button className="btn btn-primary w-full">
+              Корзина
+            </button>
+          </Link>
         </div>
       </div>
     </>
