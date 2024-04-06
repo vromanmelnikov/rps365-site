@@ -1,0 +1,29 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    gap: 1.5rem;
+}
+
+.about {
+    width: 40%;
+}
+
+.certificates {
+    width: 55%;
+    h2 {
+        margin-bottom: 1rem;
+        text-align: center
+    }
+}
+
+.objects {
+    width: 100%;
+    h2 {
+        margin-bottom: 1rem;
+        // text-align: center
+    }
+}

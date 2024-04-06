@@ -1,4 +1,10 @@
 import Layout from "components/Layout";
+import AboutBlock from "components/Main/About";
+import Advantages from "components/Main/Advantages";
+import Feedbacks from "components/Main/Feedbacks";
+import Info from "components/Main/Info";
+import PopularGoods from "components/Main/PopularGoods";
+import TitleBlock from "components/Main/TitleBlock";
 import Head from "next/head";
 
 export default function About() {
@@ -10,9 +16,12 @@ export default function About() {
         <title>{title}</title>
       </Head>
       <Layout >
-        <div>
-          <h1>Main</h1>
-        </div>
+        <TitleBlock />
+        <Advantages />
+        <PopularGoods />
+        <AboutBlock />
+        <Feedbacks />
+        <Info />
       </Layout>
     </>
   );

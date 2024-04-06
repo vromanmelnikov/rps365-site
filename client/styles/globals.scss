@@ -4,9 +4,14 @@
 
 @import './variables';
 
+html {
+    scroll-behavior: smooth !important;
+}
+
 body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -36,6 +41,14 @@ input[type="number"] {
 
 .MuiSvgIcon-colorPrimary {
     color: $base-color !important;
+}
+
+.dropdown-content {
+    z-index: 500;
+}
+
+.btn {
+    font-weight: 400;
 }
 
 .btn-primary {

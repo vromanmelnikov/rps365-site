@@ -1,0 +1,36 @@
+@import '../../../styles/variables';
+
+.main {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header {
+    width: 100%;
+}
+
+.items {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    row-gap: 2rem;
+}
+
+.item {
+    width: 25%;
+    height: 175px;
+    background-color: $base-color;
+}
+
+.btn {
+    margin: 0 auto !important;
+}

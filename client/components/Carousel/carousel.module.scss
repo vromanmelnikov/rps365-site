@@ -1,0 +1,136 @@
+@import '../../styles/variables';
+
+.carousel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    .images {
+        max-width: 80%;
+        flex-grow: 1;
+        height: 200px;
+        // background-color: black;
+        overflow-x: hidden;
+
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+
+        scroll-snap-type: x mandatory;
+
+        position: relative;
+
+        border-radius: 1rem;
+
+        .image {
+            // min-width: 300px;
+            width: auto;
+            height: 100%;
+            background-color: antiquewhite;
+            scroll-snap-align: center;
+            cursor: pointer;
+        }
+    }
+
+    // .images::-webkit-scrollbar {
+    //     display: none;
+    // }
+}
+
+.leftArrow,
+.rightArrow {
+    cursor: pointer;
+}
+
+.rightArrow {
+    rotate: 180deg
+}
+
+.modal {
+
+    width: fit-content;
+    max-width: 90vw;
+    height: calc(100vh - 5rem);
+
+    overflow-y: hidden;
+
+    background-color: $base-color;
+    gap: 1.5rem;
+
+    position: relative;
+
+    .modalImage {
+        height: 100%;
+        width: auto;
+        max-width: 100%;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+    }
+
+    .rightArrow,
+    .leftArrow {
+        position: absolute;
+        top: 50%;
+        z-index: 1001;
+    }
+
+    .leftArrow {
+        left: 1rem;
+    }
+
+    .rightArrow {
+        right: 1rem;
+    }
+
+    form {
+        button {
+            z-index: 1001;
+        }
+    }
+}
+
+.expandBtn {
+    margin-top: 1.5rem;
+}
+
+.expandedBlock {
+    width: 100%;
+    max-height: 0;
+    transition: max-height 2s linear;
+    margin-top: 0rem;
+    transition: margin-top 0.125s linear;
+
+    overflow-y: hidden;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+
+    img {
+        max-width: 30%;
+        cursor: pointer;
+        border-radius: .75rem;
+    }
+}
+
+.expandedBlock[open] {
+    max-height: 6000px;
+    transition: max-height 2s linear;
+    margin-top: 1.5rem;
+}

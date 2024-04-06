@@ -9,7 +9,7 @@ function Photo({ image, isCurrent }) {
   const URL = `${STATIC_URL}/${image}`
 
   return (
-    <Image style={isCurrent === false && { display: 'none' }} className={`${styles.image}`} src={URL} width='1600' height='0' />
+    <Image style={isCurrent === false && { display: 'none' }} className={`${styles.image}`} src={URL} width='1600' height='0' alt='Фото товара'/>
   )
 }
 

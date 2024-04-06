@@ -1,0 +1,42 @@
+@import '../../../styles/variables';
+
+.main {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header {
+    width: 100%;
+}
+
+.blocks {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.map {
+    width: 60%;
+    background-color: antiquewhite;
+    border: 2px solid $base-color;
+}
+
+.info {
+    // width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    padding-left: 2rem;
+
+    .item h3 {
+        font-weight: 600;
+        margin-bottom: .5rem;
+    }
+}

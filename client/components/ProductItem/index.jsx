@@ -67,12 +67,6 @@ export default function ProductItem({ product }) {
     }
   }, [typeID]);
 
-  useEffect(
-    ()=>{
-      console.log(images)
-    }, [images]
-  )
-
   function addProductToCart() {
     if (typeID === null) {
       setError({ ...error, noTypeChoosen: true });
