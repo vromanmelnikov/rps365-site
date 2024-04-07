@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 
 export default function CatalogItems({ items }) {
 
+  console.log(items)
+
   const router = useRouter()
   const [category, setCategory] = useState(allCategories[0])
 
@@ -36,6 +38,11 @@ export default function CatalogItems({ items }) {
           items.filter(item => item.category === category.type || category.type === '').map((item, index) => {
             return <Item key={index} item={item} />;
           })
+        }
+        {
+          items.filter(item => item.category === category.type || category.type === '').length === 0
+          &&
+          <h1 >Товаров не найдено</h1>
         }
       </div>
     </section>

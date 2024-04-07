@@ -25,5 +25,13 @@
     .item {
         width: 30%;
         aspect-ratio: 1.1;
+
+        figure {
+            height: 12.5rem;
+
+            img {
+                object-fit: cover;
+            }
+        }
     }
 }

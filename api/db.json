@@ -15,7 +15,9 @@
                     "description": "1 манжета с отверстиями, 1 фланец, 1 хомут, 4 болта, 4 гайки, 4 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
                     "cost": 700,
                     "itemType": "1шт.",
-                    "images": ["EMPTY_IMAGE.png"]
+                    "images": [
+                        "EMPTY_IMAGE.png"
+                    ]
                 },
                 {
                     "id": 1,
@@ -23,7 +25,9 @@
                     "description": "1 манжета с отверстиями, 2 фланца , 1 хомут, 4 болта, 4 гайки, 8 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
                     "cost": 850,
                     "itemType": "1шт.",
-                    "images": ["EMPTY_IMAGE_2.png"]
+                    "images": [
+                        "EMPTY_IMAGE_2.png"
+                    ]
                 }
             ],
             "tagsID": [
@@ -45,7 +49,9 @@
                     "description": "1 манжета без отверстий, 1 фланец, 1 хомут, 4 самореза, 4 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
                     "cost": 680,
                     "itemType": "1шт.",
-                    "images": ["EMPTY_IMAGE.png"]
+                    "images": [
+                        "EMPTY_IMAGE.png"
+                    ]
                 },
                 {
                     "id": 1,
@@ -53,7 +59,9 @@
                     "description": "1 манжета с отверстиями, 1 фланец, 1 хомут, 4 анкера забивные, 4 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
                     "cost": 710,
                     "itemType": "1шт.",
-                    "images": ["EMPTY_IMAGE.png"]
+                    "images": [
+                        "EMPTY_IMAGE.png"
+                    ]
                 }
             ],
             "tagsID": [
@@ -74,6 +82,187 @@
         {
             "id": 2,
             "name": "Для металла"
+        }
+    ],
+    "sertificats": [
+        {
+            "id": 0,
+            "url": "sertificat_1.jpg"
+        },
+        {
+            "id": 1,
+            "url": "sertificat_2.jpg"
+        },
+        {
+            "id": 2,
+            "url": "sertificat_3.jpg"
+        },
+        {
+            "id": 3,
+            "url": "sertificat_4.jpg"
+        },
+        {
+            "id": 4,
+            "url": "sertificat_5.jpg"
+        }
+    ],
+    "feedbacks": [
+        {
+            "id": 0,
+            "url": "feedback_1.jpg"
+        },
+        {
+            "id": 0,
+            "url": "feedback_2.jpg"
+        },
+        {
+            "id": 0,
+            "url": "feedback_3.jpg"
+        },
+        {
+            "id": 0,
+            "url": "feedback_4.jpg"
+        },
+        {
+            "id": 0,
+            "url": "feedback_5.jpg"
+        }
+    ],
+    "real_objects": [
+        {
+            "id": 0,
+            "url": "real_object_1.jpg"
+        },
+        {
+            "id": 1,
+            "url": "real_object_2.jpg"
+        },
+        {
+            "id": 2,
+            "url": "real_object_3.jpg"
+        },
+        {
+            "id": 3,
+            "url": "real_object_4.jpg"
+        },
+        {
+            "id": 4,
+            "url": "real_object_5.jpg"
+        },
+        {
+            "id": 5,
+            "url": "real_object_6.jpg"
+        },
+        {
+            "id": 6,
+            "url": "real_object_7.jpg"
+        },
+        {
+            "id": 7,
+            "url": "real_object_8.jpg"
+        },
+        {
+            "id": 8,
+            "url": "real_object_9.jpg"
+        },
+        {
+            "id": 9,
+            "url": "real_object_10.jpg"
+        },
+        {
+            "id": 10,
+            "url": "real_object_11.jpg"
+        },
+        {
+            "id": 11,
+            "url": "real_object_12.jpg"
+        },
+        {
+            "id": 12,
+            "url": "real_object_13.jpg"
+        },
+        {
+            "id": 13,
+            "url": "real_object_14.jpg"
+        },
+        {
+            "id": 14,
+            "url": "real_object_15.jpg"
+        },
+        {
+            "id": 15,
+            "url": "real_object_16.jpg"
+        }
+    ],
+    "popular_goods": [
+        {
+            "id": 0,
+            "title": "Муфта проходная герметичная РПС",
+            "subtitle": "Крепление на болтах и гайках",
+            "properties": {
+                "Диаметр ступней": "16/25 мм",
+                "Диаметр ладоней": "9/15 мм"
+            },
+            "types": [
+                {
+                    "id": 0,
+                    "title": "Комплектация 1",
+                    "description": "1 манжета с отверстиями, 1 фланец, 1 хомут, 4 болта, 4 гайки, 4 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
+                    "cost": 700,
+                    "itemType": "1шт.",
+                    "images": [
+                        "EMPTY_IMAGE.png"
+                    ]
+                },
+                {
+                    "id": 1,
+                    "title": "Комплектация 2",
+                    "description": "1 манжета с отверстиями, 2 фланца , 1 хомут, 4 болта, 4 гайки, 8 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
+                    "cost": 850,
+                    "itemType": "1шт.",
+                    "images": [
+                        "EMPTY_IMAGE_2.png"
+                    ]
+                }
+            ],
+            "tagsID": [
+                2
+            ],
+            "category": "rubber"
+        },
+        {
+            "id": 1,
+            "title": "Муфта проходная герметичная РПС",
+            "subtitle": "Крепление на саморезах и забивных анкерах",
+            "properties": {
+                "Диаметр ступней": "16/25 мм"
+            },
+            "types": [
+                {
+                    "id": 0,
+                    "title": "Комплектация 1",
+                    "description": "1 манжета без отверстий, 1 фланец, 1 хомут, 4 самореза, 4 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
+                    "cost": 680,
+                    "itemType": "1шт.",
+                    "images": [
+                        "EMPTY_IMAGE.png"
+                    ]
+                },
+                {
+                    "id": 1,
+                    "title": "Комплектация 2",
+                    "description": "1 манжета с отверстиями, 1 фланец, 1 хомут, 4 анкера забивные, 4 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
+                    "cost": 710,
+                    "itemType": "1шт.",
+                    "images": [
+                        "EMPTY_IMAGE.png"
+                    ]
+                }
+            ],
+            "tagsID": [
+                0
+            ],
+            "category": "rubber"
         }
     ]
 }

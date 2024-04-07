@@ -2,9 +2,108 @@
 
 .footer {
     background-color: $base-color;
-
+    width: 100vw;
     * {
+        // color: $white-color;
+    }
+}
+
+.content {
+
+    .divider {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+}
+
+.form {
+
+    span {
+        font-size: 1.5rem;
         color: $white-color;
     }
 
+    .formContent {
+
+        margin-top: 1rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    
+        .input {
+        
+            svg {
+                color: $base-color !important;
+            }
+        }
+    }
+}
+
+.pages {
+
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    color: $white-color;
+
+    a {
+        font-size: 1.25rem;
+    }
+}
+
+.info {
+
+    width: 100%;
+
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    gap: 2rem;
+
+    color: $white-color;
+
+    .media {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: .25rem
+    }
+
+    .main {
+        // width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+
+        padding-left: 4rem;
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 0.875rem
+        }
+    
+        .item h3 {
+            font-weight: 600;
+            margin-bottom: .25rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+    }
+}
+
+.bottom {
+    margin-top: 1rem;
+    color: $white-color;
 }

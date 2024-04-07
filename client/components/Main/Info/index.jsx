@@ -9,7 +9,7 @@ export default function Info() {
             <h2 className={`${mainPageStyles.header} ${styles.header}`}>Как с нами связаться</h2>
             <div className={`${styles.blocks}`}>
                 <div className={`${styles.map}`}>
-                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6c7bb92e99aeeeb5141843a37acccd917c3617d648134caeb6e4af021ea0dc51&amp;source=constructor" width="100%" height="300" frameborder="0"></iframe>
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6c7bb92e99aeeeb5141843a37acccd917c3617d648134caeb6e4af021ea0dc51&amp;source=constructor" width="100%" height="300"></iframe>
                 </div>
                 <div className={`${styles.info}`}>
                     <div className={`${styles.item}`}>

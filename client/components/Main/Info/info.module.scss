@@ -18,13 +18,19 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-
+    align-items: stretch;
+    gap: 2rem;
 }
 
 .map {
     width: 60%;
     background-color: antiquewhite;
     border: 2px solid $base-color;
+    border-radius: .5rem;
+
+    iframe {
+        border-radius: .5rem;
+    }
 }
 
 .info {
@@ -32,8 +38,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
     gap: 2rem;
-    padding-left: 2rem;
 
     .item h3 {
         font-weight: 600;

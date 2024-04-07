@@ -5,6 +5,7 @@ import Image from "next/image";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { STATIC_URL } from 'shared/api.config';
 
 export default function Carousel({ images, height, expanded }) {
 
@@ -108,7 +109,7 @@ export default function Carousel({ images, height, expanded }) {
                                     loading='lazy' onLoad={e => {
                                         setLoadcounter(prev => prev + 1)
                                     }}
-                                    src={item.url}
+                                    src={`${STATIC_URL}/${item.url}`}
                                     width={512}
                                     height={0}
                                     alt='photo'
@@ -143,10 +144,11 @@ export default function Carousel({ images, height, expanded }) {
                             images.map((item, index) => {
                                 return (
                                     <Image
+                                        key={index}
                                         onClick={() => {
                                             setCurrImage(index)
                                         }}
-                                        src={item.url}
+                                        src={`${STATIC_URL}/${item.url}`}
                                         width={512}
                                         height={'100'}
                                         alt='Выбранное фото'
@@ -174,7 +176,7 @@ export default function Carousel({ images, height, expanded }) {
                     </span>
                     {
                         currImage !== null &&
-                        <Image src={images[currImage].url} width={1024} height={'100'} alt='Выбранное фото' className={`${styles.modalImage}`} />
+                        <Image src={`${STATIC_URL}/${images[currImage].url}`} width={1024} height={'100'} alt='Выбранное фото' className={`${styles.modalImage}`} />
                     }
                     <span onClick={() => nextImage()} className={`${styles.rightArrow} btn btn-circle `}>
                         <ArrowBackIcon />
