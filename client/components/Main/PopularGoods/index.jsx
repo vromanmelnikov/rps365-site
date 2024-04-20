@@ -17,13 +17,13 @@ export default function PopularGoods({ items }) {
                             return (
                                 <div key={index} className={`card bg-base-100 shadow-xl ${styles.item}`}>
                                     <figure>
-                                        <Image src={`${STATIC_URL}/${item.types[0].images[0]}`} width={512} height={0} alt="Shoes"></Image>
+                                        <Image src={`${STATIC_URL}/${item.types[0].images[0].url}`} width={512} height={0} alt="Shoes"></Image>
                                     </figure>
                                     <div className="card-body">
                                         <h2 className="card-title">{item.title}</h2>
                                         <p>{item.subtitle}</p>
                                         <div className="card-actions justify-end">
-                                            <button className="btn btn-primary">{item.min} - {item.max} руб.</button>
+                                            <button className="btn btn-primary">{item.typesCosts.min} - {item.typesCosts.max} руб.</button>
                                         </div>
                                     </div>
                                 </div>

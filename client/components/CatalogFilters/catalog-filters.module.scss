@@ -50,6 +50,7 @@
         flex-direction: row;
         justify-content: space-between;
         background-color: $base-ligher-color;
+        column-gap: .5rem;
         // border: $base-border;
         border-radius: $base-radius;
         padding: .25rem .5rem !important;

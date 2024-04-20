@@ -18,7 +18,7 @@ function getCostRange(types) {
 
 function Photo({ image }) {
 
-  const URL = `${STATIC_URL}/${image}`
+  const URL = `${STATIC_URL}/${image.url}`
 
   return (
     <Image src={URL} width='1600' height='0' alt="Фото"/>

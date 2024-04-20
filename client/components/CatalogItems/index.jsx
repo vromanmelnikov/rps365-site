@@ -5,18 +5,18 @@ import { allCategories } from "shared/static/static";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function CatalogItems({ items }) {
+export default function CatalogItems({ items, categories }) {
 
-  console.log(items)
+  console.log(categories)
 
   const router = useRouter()
-  const [category, setCategory] = useState(allCategories[0])
+  const [category, setCategory] = useState(categories[0])
 
   useEffect(
     () => {
       const categoryPath = router.asPath
       if (categoryPath) {
-        const category = allCategories.filter(item => item.href === categoryPath)[0]
+        const category = categories.filter(item => item.href === categoryPath)[0]
         setCategory(category)
       }
     }, [router]
@@ -26,7 +26,7 @@ export default function CatalogItems({ items }) {
     <section className={`${styles.main}`}>
       <div className={`${styles.categories}`}>
         {
-          allCategories.map((item, index) => {
+          categories.map((item, index) => {
             return (
               <Link key={index} href={item.href} className={`${styles.item} badge ${item.href === category.href && 'badge-primary'}  ${item.href !== category.href && 'badge-outline'} p-3`}>{item.name}</Link>
             )
@@ -35,12 +35,12 @@ export default function CatalogItems({ items }) {
       </div>
       <div className={`${styles.items}`}>
         {
-          items.filter(item => item.category === category.type || category.type === '').map((item, index) => {
+          items.filter(item => item.category.name === category.type || category.type === '').map((item, index) => {
             return <Item key={index} item={item} />;
           })
         }
         {
-          items.filter(item => item.category === category.type || category.type === '').length === 0
+          items.filter(item => item.category.name === category.type || category.type === '').length === 0
           &&
           <h1 >Товаров не найдено</h1>
         }

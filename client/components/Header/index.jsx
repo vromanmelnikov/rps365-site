@@ -70,11 +70,11 @@ export default function Header() {
             </div>
           </div>
           <div className={styles.functionals}>
-            <div className={`${styles.cartBlock} btn btn-circle `}>
+            {/* <div className={`${styles.cartBlock} btn btn-circle `}>
               <div className="indicator">
                 <FavoriteBorderIcon fontSize="large" />
               </div>
-            </div>
+            </div> */}
             <CartMenu />
           </div>
         </section>

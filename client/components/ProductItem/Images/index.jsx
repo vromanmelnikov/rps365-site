@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function Photo({ image, isCurrent }) {
 
-  const URL = `${STATIC_URL}/${image}`
+  const URL = `${STATIC_URL}/${image.url}`
 
   return (
     <Image style={isCurrent === false && { display: 'none' }} className={`${styles.image}`} src={URL} width='1600' height='0' alt='Фото товара'/>

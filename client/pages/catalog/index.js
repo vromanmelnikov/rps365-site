@@ -5,7 +5,7 @@ import CatalogFilters from "components/CatalogFilters";
 import CatalogItems from "components/CatalogItems";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ITEMS_URL, TAGS_URL } from "shared/api.config";
+import { CATEGORIES_URL, ITEMS_URL, TAGS_URL } from "shared/api.config";
 
 const NO_FILTERS = {
   sorting: 'COST_UP',
@@ -61,10 +61,10 @@ function applyCostFilter({ min, max }, item) {
     max: true
   }
   if (min !== '') {
-    flag.min = Boolean(item.typeCosts.find(cost => cost > min))
+    flag.min = item.typesCosts.min >= min
   }
   if (max !== '') {
-    flag.max = Boolean(item.typeCosts.find(cost => cost < max))
+    flag.max = item.typesCosts.max >= max
   }
 
   return flag.min && flag.max
@@ -101,7 +101,7 @@ function applyFilters(filters, items) {
 
 }
 
-export default function Catalog({ items, tags, costRange }) {
+export default function Catalog({ items, tags, costRange, categories }) {
 
   const [filteredItems, setFilteredItems] = useState([]);
 
@@ -146,7 +146,7 @@ export default function Catalog({ items, tags, costRange }) {
           </div>
           <div className={`${styles.catalog}`}>
             <CatalogFilters tags={tags} filters={filters} costRange={costRange} changeFilters={changeFilters} clearFilters={clearFilters} />
-            <CatalogItems items={filteredItems} />
+            <CatalogItems items={filteredItems} categories={categories} />
           </div>
         </main>
       </Layout>
@@ -156,23 +156,26 @@ export default function Catalog({ items, tags, costRange }) {
 
 export async function getServerSideProps() {
 
-  let items = (await axios.get(ITEMS_URL)).data
-  items = items.map(item => {
-    let min, max = 0
-    const typeCosts = item.types.map(type => type.cost)
-    min = Math.min(...typeCosts)
-    max = Math.max(...typeCosts)
-    return ({
-      ...item,
-      min,
-      max,
-      typeCosts
-    })
-  })
-  const costRange = getCostRangeByItems(items)
+  const data = (await axios.get(ITEMS_URL)).data
+
+  const items = data.items
+  const costRange = data.costRange
   const tags = (await axios.get(TAGS_URL)).data
+  let categories = (await axios.get(CATEGORIES_URL)).data.map(category => {
+    return {
+      name: category.rusName,
+      type: category.name,
+      href: `/catalog?category=${category.name}`
+    }
+  })
+
+  categories.unshift({
+    name: 'Все',
+    href: '/catalog',
+    type: ''
+  })
 
   return ({
-    props: { items, tags, costRange }
+    props: { items, tags, costRange, categories }
   })
 }

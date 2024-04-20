@@ -39,7 +39,7 @@ export default function Footer() {
     >
       <div className={`${mainStyles.container} ${styles.content}`}>
         <form className={`${styles.form}`} onSubmit={onSubmit}>
-          <span>Оставь свои контакты и получи скидку на первый заказ</span>
+          <span>Оставьте свои контакты, если у вас возник вопрос!</span>
           <div className={`${styles.formContent}`}>
             <label className={`${styles.input} input input-bordered flex items-center gap-2`}>
               <PersonOutlineOutlinedIcon color="primary" />

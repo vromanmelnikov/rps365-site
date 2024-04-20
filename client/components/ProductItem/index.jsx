@@ -26,7 +26,7 @@ function ProductType({ productType, checked, onTypeIDChange }) {
       className={`${styles.type} ${checked && styles.checkedType}`}
       onClick={() => onTypeIDChange(productType.id)}
     >
-      {productType.title}
+      {productType.title ? productType.title : 'Название товара'}
     </span>
   );
 }
@@ -87,7 +87,7 @@ export default function ProductItem({ product }) {
         <Images images={images}/>
       </div>
       <div className={`${styles.mainInfo}`}>
-        <h1 className={`${styles.title}`}>{product.title}</h1>
+        <h1 className={`${styles.title}`}>{product.title ? product.title : 'Название товара'}</h1>
         <span className={`${styles.subtitle}`}>{product.subtitle}</span>
         <div className={`${styles.subinfo}`}>
           <div>
@@ -111,7 +111,7 @@ export default function ProductItem({ product }) {
             );
           })}
         </div>
-        <p className={`${styles.desc}`}>{desc}</p>
+        <p className={`${styles.desc}`}>{desc ? desc : 'Описание типа товара'}</p>
         <span className={`${styles.cost}`}>{cost}</span>
         <div className={`${styles.btns}`}>
           <button

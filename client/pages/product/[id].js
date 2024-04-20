@@ -12,7 +12,7 @@ import axios from "axios";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Product({ product }) {
-  const title = `${product.title}. ${product.subtitle}`;
+  const title = `${product.title ? product.title : 'Название товара'}. ${product.subtitle ? product.subtitle : 'Описание товара'}`;
 
   return (
     <>
@@ -43,7 +43,7 @@ export default function Product({ product }) {
 
 export async function getStaticPaths() {
 
-  const items = (await axios.get(ITEMS_URL)).data
+  const items = (await axios.get(ITEMS_URL)).data.items
 
   const paths = items.map((item) => ({
     params: { id: item.id.toString() },

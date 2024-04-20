@@ -7,8 +7,6 @@ import cartService from "shared/cart.service";
 function Item({ item, index, changeCost, deleteItem }) {
   const [count, setCount] = useState(item.count);
 
-  console.log(item)
-
   function onCountChange(count) {
     if (count > 0) {
       setCount(count);
@@ -66,6 +64,11 @@ function Item({ item, index, changeCost, deleteItem }) {
 export default function CartItems({ items, changeCost, deleteItem }) {
   return (
     <section className={`${styles.main}`}>
+      {
+        items.length === 0
+        &&
+        <h2 className={`${styles.noItems}`}>Нет товаров в корзине</h2>
+      }
       {items.map((item, index) => {
         return (
           <Item key={index} item={item} index={index} changeCost={changeCost} deleteItem={deleteItem}/>

@@ -7,8 +7,7 @@ const fs = require('fs')
 
 const server = express()
 server.use(cors())
-server.use(express.json())
-server.use(bodyParser())
+server.use(bodyParser.json())
 
 server.use('/', express.static(__dirname + '/public'))
 
@@ -17,21 +16,19 @@ const storageConfig = multer.diskStorage({
         cb(null, "public");
     },
     filename: (req, file, cb) => {
-        const length = getFilesCount() + 1
-        cb(null, file.originalname + "-" + Date.now() + length + '.jpg');
+        req.fileName = Date.now() + '.jpg'
+        cb(null, req.fileName);
     }
 });
 
 server.use(multer({ storage: storageConfig }).single("file"));
 server.post('/upload', (req, res) => {
-
-    console.log('File!')
     
-    res.status(200).send('Good!')
+    res.status(200).send(req.fileName)
  
 })
 
-const port = 8000
+const port = 8080
 server.listen(
     port, () => {
         console.log("Static-server! Port: http://localhost:" + port);
