@@ -86,6 +86,28 @@ class CartService {
 
     return cost;
   }
+
+  getCartForMail() {
+    let cart = JSON.parse(window.localStorage.getItem("cart"))
+    .map(item => ({
+      title: item.title,
+      subtitle: item.subtitle,
+      typeTitle: item.type.title,
+      cost: item.type.cost,
+      count: item.count
+    }))
+    let cost = parseInt(window.localStorage.getItem("cost"));
+
+    return ({
+      items: cart,
+      cost
+    })
+  }
+
+  clearCart() {
+    window.localStorage.setItem("cart", JSON.stringify([]));
+    window.localStorage.setItem("cost", JSON.stringify(0));
+  }
 }
 
 export default CartService = new CartService();

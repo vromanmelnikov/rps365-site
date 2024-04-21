@@ -2,7 +2,7 @@ import styles from './about.module.scss'
 import mainPageStyles from '../main.module.scss'
 import Carousel from 'components/Carousel/Carousel'
 
-function Objects({realObjects}) {
+function Objects({ realObjects }) {
 
     return (
         <div className={`${styles.items}`}>
@@ -11,7 +11,7 @@ function Objects({realObjects}) {
     )
 }
 
-function Certificates({sertificats}) {
+function Certificates({ sertificats }) {
 
     return (
         <div className={`${styles.items}`}>
@@ -27,7 +27,10 @@ export default function AboutBlock(props) {
             <div className={`${styles.about}`}>
                 <h2 className={`${mainPageStyles.header}`}>О нас</h2>
                 <p>
-                    Картельные сговоры не допускают ситуации, при которой базовые сценарии поведения пользователей могут быть преданы социально-демократической анафеме! С другой стороны, семантический разбор внешних противодействий не даёт нам иного выбора, кроме определения благоприятных перспектив. Приятно, граждане, наблюдать, как ключевые особенности структуры проекта и по сей день остаются уделом либералов, которые жаждут быть описаны максимально подробно.
+                    "РЕПЛАСТ-365" - это современное решение для проблем, подкрепленное более чем десятилетним опытом в сфере герметизации. Мы всегда слушаем наших партнеров, постоянно совершенствуем и обновляем нашу продукцию, добавляя новые решения. Наши продукты ориентированы на широкий спектр предприятий, где требуется качественная герметизация коммуникаций, включая нефтегазовую промышленность, строительство АЗС и НПЗ, а также зданий и других объектов.
+                </p>
+                <p>
+                Мы предлагаем безопасные и высокоэффективные маслобензостойкие муфты по цене от производителя. Для получения более подробной информации, звоните по указанному номеру.
                 </p>
             </div>
             <div className={`${styles.certificates}`}>
@@ -36,7 +39,7 @@ export default function AboutBlock(props) {
             </div>
             <div className={`${styles.objects}`}>
                 <h2 className={`${mainPageStyles.header}`}>Наши продукты на реальных объектах</h2>
-                <Objects realObjects={props.realObjects}/>
+                <Objects realObjects={props.realObjects} />
             </div>
         </section>
     )

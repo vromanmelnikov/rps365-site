@@ -12,3 +12,6 @@ export const SERT_URL = `${API_URL}/sertificats`
 export const REAL_OBJECTS_URL = `${API_URL}/real_objects`
 export const FEEDBACKS_URL = `${API_URL}/feedbacks`
 export const POPULAR_GOODS_URL = `${ITEMS_URL}?popular=true`
+
+export const MAIL_URL = `${API_URL}/mail`
+export const MAIL_CART_URL = `${MAIL_URL}/cart`

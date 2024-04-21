@@ -6,7 +6,11 @@ import Head from "next/head";
 import styles from "./cart.module.scss";
 import { useEffect, useState } from "react";
 import CartMenu from "components/CartMenu";
+
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+
 import cartService from "shared/cart.service";
+import alertService from "shared/alert.service";
 
 export default function Cart() {
   const title = "Корзина";
@@ -40,6 +44,13 @@ export default function Cart() {
     setCost(cost)
   }
 
+  function clearCart() {
+    setItems([])
+    setCost(0)
+    cartService.clearCart()
+    alertService.openAlert('mailAlert')
+  }
+
   return (
     <>
       <Head>
@@ -49,10 +60,17 @@ export default function Cart() {
         <main className={`${styles.main}`} data-theme="mytheme">
           <h1>{title}</h1>
           <div className={`${styles.blocks}`}>
-            <CartItems items={items} changeCost={changeCost} deleteItem={deleteItem}/>
-            <CartMenu cost={cost} />
+            <CartItems items={items} changeCost={changeCost} deleteItem={deleteItem} />
+            <CartMenu cost={cost} clearCart={clearCart}/>
           </div>
         </main>
+        <div role="alert" id="mailAlert" className={`sendMailDone alert alert-success`}>
+          <MarkEmailReadIcon />
+          <span>В скором времени мы ответим на Вашу заявку!</span>
+          <div>
+            <button className="btn btn-sm"><a href="/catalog">В каталог</a></button>
+          </div>
+        </div>
       </Layout>
     </>
   );

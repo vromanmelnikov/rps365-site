@@ -10,6 +10,14 @@
 
 .about {
     width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 1rem;
+
+    p {
+        text-indent: 1.5rem;
+    }
 }
 
 .certificates {

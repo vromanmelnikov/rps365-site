@@ -26,7 +26,7 @@
     .desc {
         width: 70%;
         text-align: center;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     .title {
@@ -45,7 +45,7 @@
 
                 .word {
                     cursor: pointer;
-                    font-size: 120px;
+                    font-size: 6rem;
                     font-weight: 500;
                     -webkit-text-stroke-width: .5px;
                     -webkit-text-stroke-color: $white-color;
@@ -159,6 +159,7 @@
             line-height: 90%;
             // -webkit-text-stroke-width: .5px;
             // -webkit-text-stroke-color: $white-color;
+            cursor: default;
             color: $base-color;
             font-family: "Oswald", sans-serif;
         }

@@ -17,18 +17,18 @@ function WordMenu({ children, styleName, products, category }) {
             <span className={`${styles.dropdown} dropdown`}>
                 <ul className={`${styles.items} p-2 shadow menu`}>
                     {
-                        products.length !== 0 
-                        ?
-                        products.map((item, index) => {
-                            return(
-                                <li key={index}><a target="_blank" href={`/product/${item.id}`}>
-                                    <span className={`${styles.title}`}>{item.title}</span>
-                                    <span className={`${styles.subtitle}`}>{item.subtitle}</span>
-                                </a></li>
-                            )
-                        })
-                        :
-                        <h2>На данный момент товары не реализуются</h2>
+                        products.length !== 0
+                            ?
+                            products.map((item, index) => {
+                                return (
+                                    <li key={index}><a target="_blank" href={`/product/${item.id}`}>
+                                        <span className={`${styles.title}`}>{item.title}</span>
+                                        <span className={`${styles.subtitle}`}>{item.subtitle}</span>
+                                    </a></li>
+                                )
+                            })
+                            :
+                            <h2>На данный момент товары не реализуются</h2>
                     }
                     <a className={`btn btn-primary ${styles.btn}`} href={`/catalog?category=${category}`}>Перейти в каталог</a>
                 </ul>
@@ -70,7 +70,9 @@ export default function TitleBlock({ products }) {
                         365
                     </div>
                 </div>
-                <p className={`${styles.desc}`}>Муфты компании «РЕПЛАСТ 365» - это надежная герметизация Ваших сетей, трубных разводок, кабельных линий от различных влияний внешних факторов.</p>
+                <p className={`${styles.desc}`}>
+                    Компания "РЕПЛАСТ-365" предлагает уникальное решение для проблем, связанных с герметизацией. Мы специализируемся на разработке и обеспечении надежной герметизации технических сетей, кабельных коммуникаций и трубных разводок от воздействия внешних факторов.
+                </p>
             </div>
         </section>
     )

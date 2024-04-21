@@ -26,14 +26,14 @@ function Item({ item, index, changeCost, deleteItem }) {
             <button className="btn btn-error btn-sm" onClick={() => deleteItem(index)}>
               <DeleteOutlineIcon />
             </button>
-            <button className="btn btn-sm">
+            {/* <button className="btn btn-sm">
               <FavoriteBorderIcon color="primary" />
-            </button>
+            </button> */}
           </div>
           <div className={`${styles.count}`}>
             <span className={`${styles.cost}`}>{item.type.cost} руб.</span>
             <button
-              className="btn btn-sm btn-outline btn-primary btn-circle"
+              className="btn btn-sm btn-outline btn-circle"
               onClick={() => onCountChange(count - 1)}
             >
               -
@@ -49,7 +49,7 @@ function Item({ item, index, changeCost, deleteItem }) {
               }}
             />
             <button
-              className="btn btn-sm btn-outline btn-primary btn-circle"
+              className="btn btn-sm btn-outline btn-circle"
               onClick={() => onCountChange(count + 1)}
             >
               +

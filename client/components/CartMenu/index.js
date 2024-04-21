@@ -5,11 +5,16 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import { useState } from "react";
 import { parseNumber } from "shared/form.service";
 import emailValidator from 'email-validator'
+import cartService from "shared/cart.service";
+import { MAIL_CART_URL } from "shared/api.config";
 
-export default function CartMenu({ cost }) {
+export default function CartMenu({ cost, clearCart }) {
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+
+  const [sending, setSending] = useState(false)
 
   const [error, setError] = useState({
     name: false,
@@ -80,13 +85,40 @@ export default function CartMenu({ cost }) {
       return
     }
 
+    const cartData = cartService.getCartForMail()
+
     const data = {
-      name,
-      email,
-      number: `+7 ${number}`
+      user: {
+        name,
+        number: `+7 ${number}`,
+      },
+      items: cartData.items,
+      cost: cartData.cost
     }
 
-    console.log('submit', data)
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify(data);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    setSending(true)
+
+    fetch(MAIL_CART_URL, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+
+        clearCart()
+        setSending(false)
+
+      })
+      .catch((error) => console.error(error));
 
   }
 
@@ -102,14 +134,14 @@ export default function CartMenu({ cost }) {
               onChange={(event) => onNameChange(event)}
               onFocus={onInputFocus}
               value={name}
-              name="name"
+              // name="name"
               type="text"
               className="grow"
               placeholder="Ваше имя"
             />
             <PersonOutlineOutlinedIcon fontSize="small" />
           </label>
-          <span className={`${styles.error} ${error.name &&  styles.opened}`}>
+          <span className={`${styles.error} ${error.name && styles.opened}`}>
             Имя не заполнено
           </span>
         </div>
@@ -119,7 +151,7 @@ export default function CartMenu({ cost }) {
               onChange={(event) => onEmailChange(event)}
               onFocus={onInputFocus}
               value={email}
-              name="email"
+              // name="email"
               type="text"
               className="grow"
               placeholder="ваша_почта@mail.ru"
@@ -136,7 +168,7 @@ export default function CartMenu({ cost }) {
             <input
               onChange={(event) => onNumberChange(event)}
               value={number}
-              name="number"
+              // name="number"
               type="text"
               className="grow"
               placeholder="(999) 999-99-99"
@@ -153,8 +185,14 @@ export default function CartMenu({ cost }) {
         </div>
         <div className="divider m-0"></div>
         <div className="card-actions justify-end">
-          <button className={`${styles.btn} btn btn-success`}>
-            Оформить заказ
+          <button disabled={cost === 0} className={`${styles.btn} btn btn-success`}>
+            {
+              sending === true 
+              ?
+              <span className="loading loading-dots loading-lg"></span>
+              :
+              'Оформить заказ'
+            }
           </button>
         </div>
       </form>

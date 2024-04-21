@@ -8,6 +8,7 @@ import Info from "./Info";
 import StarIcon from "@mui/icons-material/Star";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import cartService from "shared/cart.service";
+import alertService from "shared/alert.service";
 
 function getCostRange(types) {
   const costs = types.map((item) => item.cost);
@@ -78,6 +79,8 @@ export default function ProductItem({ product }) {
       delete newProduct["tagsID"];
 
       cartService.addProductToCart(newProduct, cost);
+
+      alertService.openAlert('cartAlert')
     }
   }
 

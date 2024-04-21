@@ -7,6 +7,7 @@ import RouteIcon from '@mui/icons-material/Route';
 
 import { useState } from "react";
 import { parseNumber } from "shared/form.service";
+import alertService from "shared/alert.service";
 
 export default function Footer() {
 
@@ -30,7 +31,7 @@ export default function Footer() {
 
   function onSubmit(event) {
     event.preventDefault()
-    console.log(event)
+    document.getElementById('requestModal').showModal()
   }
 
   return (
@@ -41,7 +42,7 @@ export default function Footer() {
         <form className={`${styles.form}`} onSubmit={onSubmit}>
           <span>Оставьте свои контакты, если у вас возник вопрос!</span>
           <div className={`${styles.formContent}`}>
-            <label className={`${styles.input} input input-bordered flex items-center gap-2`}>
+            {/* <label className={`${styles.input} input input-bordered flex items-center gap-2`}>
               <PersonOutlineOutlinedIcon color="primary" />
               <input
                 value={name}
@@ -61,8 +62,8 @@ export default function Footer() {
                 type="text"
                 className="grow"
                 placeholder="(999) 999-99-99" />
-            </label>
-            <button className={`btn`}>Отправить</button>
+            </label> */}
+            <button className={`btn`} >Получить консультацию</button>
           </div>
         </form>
 

@@ -8,6 +8,7 @@ import useSWR from "swr";
 import { useState } from "react";
 import { ITEMS_URL } from "shared/api.config";
 import axios from "axios";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -35,6 +36,13 @@ export default function Product({ product }) {
             </ul>
           </div>
           <ProductItem product={product} />
+          <div role="alert" id="cartAlert" className={`sendMailDone alert alert-success`}>
+            <ShoppingCartOutlinedIcon />
+            <span>Товар добавлен в корзину</span>
+            <div>
+              <button className="btn btn-sm"><a href="/cart">В корзину</a></button>
+            </div>
+          </div>
         </main>
       </Layout>
     </>

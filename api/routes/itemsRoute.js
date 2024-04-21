@@ -141,7 +141,7 @@ itemsRoute.get('/categories', async (req, res) => {
             },
             limit: 3
         })).map(item => item.toJSON())
-        
+
         for (let i = 0; i < items.length; i++) {
 
             const typesCosts = items[i].types.map(type => type.cost)
@@ -297,7 +297,38 @@ itemsRoute.put('/:id', async (req, res) => {
 
     const data = req.body
 
-    res.status(200).end()
+    const result = await Items.update(
+        {
+            ...data
+        },
+        {
+            where: {
+                id
+            }
+        }
+    )
+
+    res.json(result).status(200).end()
+})
+
+itemsRoute.put('/types/:id', async (req, res) => {
+
+    const id = req.params.id
+
+    const data = req.body
+
+    const result = await ItemTypes.update(
+        {
+            ...data
+        },
+        {
+            where: {
+                id
+            }
+        }
+    )
+
+    res.json(result).status(200).end()
 })
 
 // itemsRoute.pu

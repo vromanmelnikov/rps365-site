@@ -97,7 +97,7 @@ export default function Header() {
           </ul>
           <div className={`${styles.finder}`}>
             <div className="divider divider-horizontal"></div>
-            <label className={`input input-bordered flex items-center gap-2`}>
+            {/* <label className={`input input-bordered flex items-center gap-2`}>
               <input type="text" className="grow" placeholder="Найти товар" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,8 @@ export default function Header() {
                   clipRule="evenodd"
                 />
               </svg>
-            </label>
+            </label> */}
+            <button className={`btn btn-sm`} onClick={() => document.getElementById('requestModal').showModal()}>Возникли вопросы?</button>
           </div>
         </section>
       </div>
