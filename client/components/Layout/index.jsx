@@ -6,19 +6,19 @@ import Footer from "components/Footer";
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import WarningIcon from '@mui/icons-material/Warning';
 
-import { Montserrat } from "next/font/google";
+// import { Montserrat } from "next/font/google";
 import RequestModal from "components/RequestModal";
 
-const montserrat = Montserrat({
-  subsets: ['cyrillic', 'latin']
-})
+// const montserrat = Montserrat({
+//   subsets: ['cyrillic', 'latin']
+// })
 
 // className={montserrat.className} 
 
 export default function Layout({ children }) {
   return (
-    <div className={`${styles.main} ${montserrat.className}`} data-theme="mytheme">
-      {/* <div className={`${styles.main}`} data-theme="mytheme"> */}
+    // <div className={`${styles.main} ${montserrat.className}`} data-theme="mytheme">
+    <div className={`${styles.main}`} data-theme="mytheme">
       <Header />
       <div role="alert" id="requestAlert" className={`sendMailDone alert alert-success`}>
         <MarkEmailReadIcon />
