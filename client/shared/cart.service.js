@@ -6,6 +6,13 @@ class CartService {
     count.innerHTML = countValue;
   }
 
+  decreaseCount() {
+    const count = document.getElementById("cart_item_count");
+    let countValue = parseInt(count.innerHTML) === 0 ? 0 : parseInt(count.innerHTML) - 1;
+
+    count.innerHTML = countValue;
+  }
+
   getCartCount() {
     let cart = JSON.parse(window.localStorage.getItem("cart"));
     let count = 0;
@@ -41,16 +48,14 @@ class CartService {
     } else {
       newProduct.count = 1;
       cart.push(newProduct);
-    }
 
-    console.log(newProduct)
+      this.increaseCount();
+    }
 
     cost += parseInt(typeCost);
 
     window.localStorage.setItem("cart", JSON.stringify(cart));
     window.localStorage.setItem("cost", cost);
-
-    this.increaseCount();
   }
 
   changeProductCount(index, count) {
@@ -84,18 +89,20 @@ class CartService {
     window.localStorage.setItem("cart", JSON.stringify(cart));
     window.localStorage.setItem("cost", cost);
 
+    this.decreaseCount()
+
     return cost;
   }
 
   getCartForMail() {
     let cart = JSON.parse(window.localStorage.getItem("cart"))
-    .map(item => ({
-      title: item.title,
-      subtitle: item.subtitle,
-      typeTitle: item.type.title,
-      cost: item.type.cost,
-      count: item.count
-    }))
+      .map(item => ({
+        title: item.title,
+        subtitle: item.subtitle,
+        typeTitle: item.type.title,
+        cost: item.type.cost,
+        count: item.count
+      }))
     let cost = parseInt(window.localStorage.getItem("cost"));
 
     return ({

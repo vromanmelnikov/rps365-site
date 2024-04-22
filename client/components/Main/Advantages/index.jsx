@@ -63,7 +63,7 @@ export default function Advantages({ }) {
                                         advantage.items.map(
                                             (item, itemIndex) => {
                                                 return(
-                                                    <p className={`${styles.advantage}`}>- {item}</p>
+                                                    <p key={itemIndex} className={`${styles.advantage}`}>- {item}</p>
                                                 )
                                             }
                                         )

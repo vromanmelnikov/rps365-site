@@ -182,7 +182,8 @@ itemsRoute.post('/', async (req, res) => {
     const item = await Items.create({
         title: data.title,
         subtitle: data.subtitle,
-        popular: true,
+        popular: false,
+        isService: data.isService,
         categoryId: data.categoryId
     },
         {

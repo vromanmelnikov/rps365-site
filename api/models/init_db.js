@@ -10,11 +10,13 @@ const PropertyNames = require("./PropertyNames")
 const PropertyValues = require("./PropertyValues")
 const Properties = require("./Properties")
 const ItemsProperties = require("./ItemsProperties")
+const Services = require("./Service")
 
 function initModels(sequelize) {
 
     //основные модели
     Items.init(sequelize, DataTypes)
+    Services.init(sequelize, DataTypes)
     ItemTypes.init(sequelize, DataTypes)
     TypeImages.init(sequelize, DataTypes)
     Tags.init(sequelize, DataTypes)
@@ -22,6 +24,10 @@ function initModels(sequelize) {
     StaticImages.init(sequelize, DataTypes)
     PropertyNames.init(sequelize, DataTypes)
     PropertyValues.init(sequelize, DataTypes)
+
+    //связывание услуги и товара
+    Items.hasOne(Services)
+    Services.belongsTo(Items)
 
     //свойства
     Properties.init(sequelize, DataTypes)

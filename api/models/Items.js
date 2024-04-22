@@ -1,20 +1,5 @@
 const { Model } = require("sequelize");
 
-// const Items = sequelize.define('items', {
-//     title: {
-//         type: DataTypes.STRING
-//     },
-//     subtitle: {
-//         type: DataTypes.STRING
-//     },
-//     categoryID: {
-//         type: DataTypes.INTEGER
-//     },
-//     popular: {
-//         type: DataTypes.BOOLEAN
-//     }
-// })
-
 class Items extends Model {
     static init(sequelize, DataTypes) {
         return super.init(
@@ -33,7 +18,10 @@ class Items extends Model {
             },
             popular: {
                 type: DataTypes.BOOLEAN
-            },
+            }, 
+            isService: {
+                type: DataTypes.BOOLEAN
+            }
         },
             {
                 sequelize,
