@@ -16,10 +16,10 @@ const port = 8000
 app.use(bodyParser.json())
 app.use(cors())
 
-app.use('/items', itemsRoute)
-app.use('/images', imageRoute)
-app.use('/static', staticRoute)
-app.use('/mail', mailRoute)
+app.use('/api/items', itemsRoute)
+app.use('/api/images', imageRoute)
+app.use('/api/static', staticRoute)
+app.use('/api/mail', mailRoute)
 
 app.listen(port, async () => {
     console.log(`Example app listening on port ${port}`)
