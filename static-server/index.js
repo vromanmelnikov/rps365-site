@@ -9,7 +9,7 @@ const server = express()
 server.use(cors())
 server.use(bodyParser.json())
 
-server.use('/', express.static(__dirname + '/public'))
+server.use('/static', express.static(__dirname + '/public'))
 
 server.get('/static/test', (req, res) => {
 
