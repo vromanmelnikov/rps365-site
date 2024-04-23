@@ -9,6 +9,11 @@ const nextConfig = {
         hostname: 'localhost',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'mistydev.ru',
+        pathname: '**',
+      },
     ],
   },
 };
