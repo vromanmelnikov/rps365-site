@@ -9,7 +9,7 @@ const server = express()
 server.use(cors())
 server.use(bodyParser.json())
 
-server.use('/', express.static(__dirname + '/public'))
+server.use('/static', express.static(__dirname + '/public'))
 
 const storageConfig = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -22,7 +22,7 @@ const storageConfig = multer.diskStorage({
 });
 
 server.use(multer({ storage: storageConfig }).single("file"));
-server.post('/upload', (req, res) => {
+server.post('/static/upload', (req, res) => {
     
     res.status(200).send(req.fileName)
  
