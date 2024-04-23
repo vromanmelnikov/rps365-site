@@ -11,6 +11,16 @@ server.use(bodyParser.json())
 
 server.use('/', express.static(__dirname + '/public'))
 
+server.get('/static/test', (req, res) => {
+
+    res.send('/static/test').status(200).end()
+})
+
+server.get('/test', (req, res) => {
+
+    res.send('/static/test').status(200).end()
+})
+
 const storageConfig = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "public");
