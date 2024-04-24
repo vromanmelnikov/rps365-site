@@ -1,13 +1,10 @@
 import Link from "next/link";
 import Item from "./Item";
 import styles from "./catalog-items.module.scss";
-import { allCategories } from "shared/static/static";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function CatalogItems({ items, categories }) {
-
-  console.log(categories)
 
   const router = useRouter()
   const [category, setCategory] = useState(categories[0])

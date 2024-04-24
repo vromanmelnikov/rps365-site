@@ -2,13 +2,14 @@ import styles from "./header.module.scss";
 import MainStyles from "../../styles/Main.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PhoneEnabledOutlinedIcon from "@mui/icons-material/PhoneEnabledOutlined";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartMenu from "./CartMenu";
-import { categories } from "shared/static/static";
+// import { categories } from "shared/static/static";
 
 import logo from 'public/images/logo.jpg'
+import { CATEGORIES_URL } from "shared/api.config";
+// import { CATEGORIES_URL } from "shared/api.config";
 
 export default function Header() {
   const links = [
@@ -18,12 +19,46 @@ export default function Header() {
     },
   ];
 
+  const [categories, setCategories] = useState([])
+
+  useEffect(
+    () => {
+
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+      };
+
+      fetch(CATEGORIES_URL, requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+
+          const categories = JSON.parse(result).map(category => {
+            return {
+              name: category.rusName,
+              type: category.name,
+              href: `/catalog?category=${category.name}`
+            }
+          })
+
+          setCategories(categories)
+
+        })
+        .catch((error) => console.error(error));
+
+    }, []
+  );
+
   return (
     <header className={styles.header}>
       <div className={styles.mainBack}>
         <section className={`${MainStyles.container} ${styles.main}`}>
           <Link href='/' className={styles.logo}>
-            <Image src={logo} width="150" height='150' alt="RPS365"/>
+            <Image src={logo} width="150" height='150' alt="RPS365" />
           </Link>
           <ul className={styles.links}>
             {links.map((item, index) => {
@@ -64,7 +99,7 @@ export default function Header() {
                 </li>
                 <hr />
                 <li>
-                  <a  href="tel:8(8412)700-495">8 (8412) 700-495</a>
+                  <a href="tel:8(8412)700-495">8 (8412) 700-495</a>
                 </li>
               </div>
             </div>

@@ -40,8 +40,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            row-gap: 1.25rem;
 
             .menu {
+
+                height: auto;
+                display: inline-block;
 
                 .word {
                     cursor: pointer;
@@ -49,7 +53,7 @@
                     font-weight: 500;
                     -webkit-text-stroke-width: .5px;
                     -webkit-text-stroke-color: $white-color;
-                    line-height: 100%;
+                    line-height: 1;
                     font-weight: 500;
                     font-family: "Oswald", sans-serif !important;
                     letter-spacing: 5px;
@@ -75,7 +79,7 @@
                     transition: max-height 0.25s linear;
                     overflow-y: hidden;
                     position: absolute;
-                    top: 80%;
+                    top: 100%;
                     left: 50%;
                     transform: translateX(-50%);
                     background-color: white;

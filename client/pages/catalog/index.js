@@ -21,17 +21,6 @@ const NO_FILTERS = {
   saved: true
 }
 
-function getCostRangeByItems(items) {
-
-  const minCosts = items.map(item => item.min)
-  const maxCosts = items.map(item => item.max)
-
-  const min = Math.min(...minCosts)
-  const max = Math.max(...maxCosts)
-
-  return { min, max }
-}
-
 function applySortFilter(sortType, items) {
 
   if (sortType === 'COST_UP') {
