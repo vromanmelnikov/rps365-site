@@ -93,12 +93,12 @@ export default function ProductItem({ product }) {
         <h1 className={`${styles.title}`}>{product.title ? product.title : 'Название товара'}</h1>
         <span className={`${styles.subtitle}`}>{product.subtitle}</span>
         <div className={`${styles.subinfo}`}>
-          <div>
+          {/* <div>
             <StarIcon />
             <span>3 отзыва</span>
-          </div>
+          </div> */}
           <div>
-            <CheckCircleOutlineIcon />
+            <CheckCircleOutlineIcon color="success" />
             <span>В наличии</span>
           </div>
         </div>
@@ -114,7 +114,7 @@ export default function ProductItem({ product }) {
             );
           })}
         </div>
-        <p className={`${styles.desc}`}>{desc ? desc : 'Описание типа товара'}</p>
+        <p className={`${styles.desc}`}>{desc}</p>
         <span className={`${styles.cost}`}>{cost}</span>
         <div className={`${styles.btns}`}>
           <button

@@ -131,6 +131,14 @@ export default function Catalog({ items, tags, costRange, categories }) {
     <>
       <Head>
         <title>{title}</title>
+        <meta
+          name="description"
+          content='Компания "РЕПЛАСТ-365" предлагает уникальное решение для проблем, 
+          связанных с герметизацией. Мы специализируемся на разработке и обеспечении
+           надежной герметизации технических сетей, кабельных коммуникаций и трубных 
+           разводок от воздействия внешних факторов'>
+        </meta>
+        <meta charSet="utf-8"></meta>
       </Head>
       <Layout>
         <main className={`${styles.main}`} data-theme="mytheme">

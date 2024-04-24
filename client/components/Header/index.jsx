@@ -41,10 +41,10 @@ export default function Header() {
               className="tooltip tooltip-bottom"
               data-tip="Нажми и перейди на карту"
             >
-              <div className={styles.info}>
+              <a className={styles.info} target='_blank' href='https://yandex.ru/maps/11098/zarechny/?ll=45.174128%2C53.205237&mode=routes&rtext=~53.205237%2C45.174129&rtt=mt&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgo0MDM2Njk1NjQwEmbQoNC-0YHRgdC40Y8sINCf0LXQvdC30LXQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCDQl9Cw0YDQtdGH0L3Ri9C5LCDRg9C70LjRhtCwIDIwLdGPINCU0L7RgNC-0LPQsCwgMzMiCg1OsjRCFSrSVEI%2C&z=16.7'>
                 <span>Пн-Сб: 10:00-19:00</span>
                 <span>г. Заречный, ул. 20-ая дорога, д. 33</span>
-              </div>
+              </a>
             </div>
             <div className={`${styles.phoneBlock} dropdown dropdown-bottom`}>
               <div
@@ -60,11 +60,11 @@ export default function Header() {
                 className={`${styles.phones} dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52`}
               >
                 <li>
-                  <a>8 (8412) 608-228</a>
+                  <a href="tel:8(8412)608-228">8 (8412) 608-228</a>
                 </li>
                 <hr />
                 <li>
-                  <a>8 (8412) 700-495</a>
+                  <a  href="tel:8(8412)700-495">8 (8412) 700-495</a>
                 </li>
               </div>
             </div>

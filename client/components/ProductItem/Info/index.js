@@ -18,12 +18,12 @@ export default function Info({properties}) {
         >
           Характеристики
         </button>
-        <button
+        {/* <button
           onClick={() => changeSection("section_2")}
           className={`btn join-item`}
         >
           Отзывы
-        </button>
+        </button> */}
       </div>
       {sectionID === "section_1" && 
       <div className={`${styles.attrs}`}>

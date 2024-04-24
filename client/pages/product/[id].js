@@ -10,8 +10,6 @@ import { ITEMS_URL } from "shared/api.config";
 import axios from "axios";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
 export default function Product({ product }) {
   const title = `${product.title ? product.title : 'Название товара'}. ${product.subtitle ? product.subtitle : 'Описание товара'}`;
 
@@ -19,6 +17,11 @@ export default function Product({ product }) {
     <>
       <Head>
         <title>{title}</title>
+        <meta
+          name="description"
+          content={`${product.title}. ${product.subtitle}`}>
+        </meta>
+        <meta charSet="utf-8"></meta>
       </Head>
       <Layout>
         <main className={`${styles.main}`} data-theme="mytheme">

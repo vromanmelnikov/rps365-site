@@ -58,17 +58,17 @@ export default function Item({ item }) {
         <span className={`${styles.subtitle}`}>{item.subtitle}</span>
       </div>
       <div className={`${styles.btns}`}>
-        <button className="btn">
+        <Link href={`/product/${item.id}`} className={`${styles.btn} btn btn-primary`}>
           {costRange.min} - {costRange.max} руб.
-        </button>
-        <label style={{ height: "100%" }} className="swap">
+        </Link>
+        {/* <label style={{ height: "100%" }} className="swap">
           <input type="checkbox" />
           <FavoriteBorderIcon
             color="primary"
             className={`${styles.icon} swap-off`}
           />
           <FavoriteIcon color="primary" className={`${styles.icon} swap-on`} />
-        </label>
+        </label> */}
       </div>
     </div>
   );
