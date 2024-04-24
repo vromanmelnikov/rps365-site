@@ -85,7 +85,7 @@
 
 .cost {
     font-size: 2rem;
-    margin-top: 1rem;
+    margin-top: .5rem;
 }
 
 .icon {
@@ -119,4 +119,25 @@
     max-width: 80%;
     margin-top: 1rem;
     font-size: $tag-size;
+}
+
+.tags {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: .5rem;
+    column-gap: .5rem;
+    margin: .375rem 0;
+
+    span {
+        cursor: default;
+        background-color: $base-color;
+        color: $white-color;
+        border: 1px solid black;
+        border-radius: $base-radius;
+        font-size: 0.825rem;
+        padding: .275rem .75rem;
+    }
 }

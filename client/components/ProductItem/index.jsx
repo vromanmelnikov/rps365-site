@@ -5,7 +5,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Images from "./Images";
 import Info from "./Info";
-import StarIcon from "@mui/icons-material/Star";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import cartService from "shared/cart.service";
 import alertService from "shared/alert.service";
@@ -33,10 +32,12 @@ function ProductType({ productType, checked, onTypeIDChange }) {
 }
 
 export default function ProductItem({ product }) {
+
+  console.log(product.tags)
+
   const [error, setError] = useState({
     noTypeChoosen: false,
   });
-  // const catalogService = new CatalogService();
 
   const { min, max } = getCostRange(product.types);
 
@@ -92,6 +93,17 @@ export default function ProductItem({ product }) {
       <div className={`${styles.mainInfo}`}>
         <h1 className={`${styles.title}`}>{product.title ? product.title : 'Название товара'}</h1>
         <span className={`${styles.subtitle}`}>{product.subtitle}</span>
+        <div className={`${styles.tags}`}>
+          {
+            product.tags.map(
+              (item, index) => {
+                return(
+                  <span>{item.name}</span>
+                )
+              }
+            )
+          }
+        </div>
         <div className={`${styles.subinfo}`}>
           {/* <div>
             <StarIcon />
@@ -126,7 +138,7 @@ export default function ProductItem({ product }) {
               ? "В корзину"
               : "Выберите тип товара"}
           </button>
-          <label style={{ height: "100%" }} className="swap">
+          {/* <label style={{ height: "100%" }} className="swap">
             <input type="checkbox" />
             <FavoriteBorderIcon
               color="primary"
@@ -136,7 +148,7 @@ export default function ProductItem({ product }) {
               color="primary"
               className={`${styles.icon} swap-on`}
             />
-          </label>
+          </label> */}
         </div>
       </div>
       <Info properties={product.properties} />
