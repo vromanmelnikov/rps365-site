@@ -98,7 +98,7 @@ export default function ProductItem({ product }) {
             product.tags.map(
               (item, index) => {
                 return(
-                  <span>{item.name}</span>
+                  <span key={index}>{item.name}</span>
                 )
               }
             )

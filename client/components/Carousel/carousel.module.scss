@@ -15,8 +15,10 @@
     align-items: center;
     gap: 1rem;
 
+    position: relative;
+
     .images {
-        max-width: 80%;
+        max-width: 100%;
         flex-grow: 1;
         height: 200px;
         // background-color: black;
@@ -24,6 +26,7 @@
 
         display: flex;
         flex-direction: row;
+        justify-content: center;
         gap: 1rem;
 
         scroll-snap-type: x mandatory;
@@ -50,10 +53,25 @@
 .leftArrow,
 .rightArrow {
     cursor: pointer;
+    position: absolute;
+    z-index: 500;
+    opacity: 0.75;
+    transition: opaciry 0.125s;
+}
+
+.leftArrow {
+    left: 0;
 }
 
 .rightArrow {
-    rotate: 180deg
+    rotate: 180deg;
+    right: 0;
+}
+
+.leftArrow:hover,
+.rightArrow:hover {
+    opacity: 1;
+    transition: opaciry 0.125s;
 }
 
 .modal {
@@ -89,10 +107,12 @@
 
     .leftArrow {
         left: 1rem;
+        // transform: translateY(-50%);
     }
 
     .rightArrow {
         right: 1rem;
+        // transform: translateY(50%);
     }
 
     form {
@@ -133,4 +153,36 @@
     max-height: 6000px;
     transition: max-height 2s linear;
     margin-top: 1.5rem;
+}
+
+@media (max-width: 991px) {
+    .main {
+        .images {
+            height: 250px !important;
+        }
+    }
+
+    .expandedBlock {
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .modal {
+        height: fit-content;
+        // max-height: 90vw;
+        width: calc(100vh - 5rem);
+
+        .modalImage {
+            height: auto;
+            width: 100%;
+            max-height: 100%;
+            position: relative;
+            left: 0;
+            top: 0;
+            transform: none;
+            z-index: 1000;
+        }
+    }
 }

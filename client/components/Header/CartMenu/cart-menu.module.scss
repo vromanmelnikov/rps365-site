@@ -45,3 +45,10 @@
 
     
 }
+
+@media (max-width: 991px) {
+  .menu {
+    // width: 90%;
+    right: -3.5rem !important;
+  }
+}

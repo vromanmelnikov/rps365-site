@@ -136,7 +136,7 @@ export default function CartMenu({ cost, clearCart }) {
               value={name}
               // name="name"
               type="text"
-              className="grow"
+              // className="grow"
               placeholder="Ваше имя"
             />
             <PersonOutlineOutlinedIcon fontSize="small" />
@@ -153,7 +153,7 @@ export default function CartMenu({ cost, clearCart }) {
               value={email}
               // name="email"
               type="text"
-              className="grow"
+              // className="grow"
               placeholder="ваша_почта@mail.ru"
             />
             <EmailIcon fontSize="small" />
@@ -170,7 +170,7 @@ export default function CartMenu({ cost, clearCart }) {
               value={number}
               // name="number"
               type="text"
-              className="grow"
+              // className="grow"
               placeholder="(999) 999-99-99"
               onFocus={(e) => {
                 e.target.setAttribute("autoComplete", "none")

@@ -12,3 +12,9 @@
     flex-grow: 1;
     padding-bottom: 3rem;
 }
+
+@media (max-width: 991px) {
+    .content {
+        margin-top: 7rem !important;
+    }
+}

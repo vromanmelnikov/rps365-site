@@ -46,3 +46,17 @@
         margin-bottom: .5rem;
     }
 }
+
+@media (max-width: 991px) {
+    .blocks {
+        flex-direction: column;
+    }
+
+    .blocks > * {
+        width: 100%;
+    }
+
+    .routeBtn {
+        width: 100%;
+    }
+}

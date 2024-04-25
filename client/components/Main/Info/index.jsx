@@ -22,7 +22,7 @@ export default function Info() {
                         <p>г. Заречный, ул. 20-ая дорога, д. 33</p>
                         <p>Пн-Сб: 10:00-19:00</p>
                     </div>
-                    <a className='btn btn-primary' target='_blank' href='https://yandex.ru/maps/11098/zarechny/?ll=45.174128%2C53.205237&mode=routes&rtext=~53.205237%2C45.174129&rtt=mt&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgo0MDM2Njk1NjQwEmbQoNC-0YHRgdC40Y8sINCf0LXQvdC30LXQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCDQl9Cw0YDQtdGH0L3Ri9C5LCDRg9C70LjRhtCwIDIwLdGPINCU0L7RgNC-0LPQsCwgMzMiCg1OsjRCFSrSVEI%2C&z=16.7'>
+                    <a className={`${styles.routeBtn} btn btn-primary`} target='_blank' href='https://yandex.ru/maps/11098/zarechny/?ll=45.174128%2C53.205237&mode=routes&rtext=~53.205237%2C45.174129&rtt=mt&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgo0MDM2Njk1NjQwEmbQoNC-0YHRgdC40Y8sINCf0LXQvdC30LXQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCDQl9Cw0YDQtdGH0L3Ri9C5LCDRg9C70LjRhtCwIDIwLdGPINCU0L7RgNC-0LPQsCwgMzMiCg1OsjRCFSrSVEI%2C&z=16.7'>
                         Проложить маршрут
                         <RouteIcon />
                     </a>

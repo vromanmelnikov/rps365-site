@@ -71,3 +71,9 @@
 .icon {
     font-size: 45px;
 }
+
+@media (max-width: 991px) {
+    .item {
+        width: 100%;
+    }
+}

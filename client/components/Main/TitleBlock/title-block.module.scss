@@ -115,9 +115,11 @@
                                 display: flex;
                                 flex-direction: column;
                                 align-items: flex-start;
+
                                 .title {
                                     font-weight: 500;
                                 }
+
                                 .subtitle {
                                     font-size: 0.75rem;
                                 }
@@ -172,4 +174,39 @@
     * {
         color: $white-color;
     }
+}
+
+@media (max-width: 991px) {
+    .info {
+
+        .desc {}
+
+        .title {
+
+            .words {
+
+                .menu {
+
+                    .word {
+                        font-size: 3rem;
+                    }
+                }
+
+
+
+                .word_1 {
+                    margin-right: 2rem;
+                }
+
+                .word_2 {
+                    margin-left: 11rem;
+                }
+
+                .word_3 {
+                    margin-left: 18rem;
+                }
+            }
+        }
+    }
+
 }

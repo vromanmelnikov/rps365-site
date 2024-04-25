@@ -14,7 +14,7 @@ export default function Info({properties}) {
       <div className={`join`}>
         <button
           onClick={() => changeSection("section_1")}
-          className={`btn join-item`}
+          className={`${styles.btn} btn join-item`}
         >
           Характеристики
         </button>

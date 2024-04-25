@@ -1,0 +1,11 @@
+@import '../../../styles/variables';
+
+.menu {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .menu {
+    display: inline-grid;
+  }
+}

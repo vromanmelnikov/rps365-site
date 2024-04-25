@@ -46,7 +46,7 @@ export default function CartMenu() {
         </div>
         <div
           tabIndex={0}
-          className={`${styles.menu} dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52`}
+          className={`${styles.menu} dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-52`}
         >
           <ul className={`${styles.items} p-2 shadow bg-base-100`}>
             {products.length === 0 && <li>Корзина пуста</li>}

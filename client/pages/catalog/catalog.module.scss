@@ -8,5 +8,31 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 2rem;
+    column-gap: 2rem;
+}
+
+.filterToggler {
+    display: none;
+}
+
+.breadcrumbs {
+    overflow-x: hidden;
+}
+
+@media (max-width: 991px) {
+    .catalog {
+        flex-direction: column;
+        // gap: 0;
+        row-gap: .5rem;
+    }
+
+    .breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .filterToggler {
+        display: inline-grid;
+    }
 }

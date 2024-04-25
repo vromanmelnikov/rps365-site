@@ -32,3 +32,9 @@
     align-items: center;
     gap: .5rem;
 }
+
+@media (max-width: 991px) {
+    .main {
+        width: 100%;
+    }
+}

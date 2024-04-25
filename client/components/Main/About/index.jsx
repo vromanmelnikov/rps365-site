@@ -34,7 +34,7 @@ export default function AboutBlock(props) {
                 </p>
             </div>
             <div className={`${styles.certificates}`}>
-                <h2 className={`${mainPageStyles.header}`}>Сертификаты качества</h2>
+                <h2 className={`${mainPageStyles.header}`}>Мы учавствуем в выставках</h2>
                 <Certificates sertificats={props.sertificats} />
             </div>
             <div className={`${styles.objects}`}>

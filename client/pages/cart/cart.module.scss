@@ -14,3 +14,9 @@
     gap: 1.5rem;
 }
 
+@media (max-width: 991px) {
+    .blocks {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

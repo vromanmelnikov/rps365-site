@@ -81,7 +81,7 @@ input[type="number"] {
 .sendMailDone {
     position: fixed;
     top: 4rem;
-    right: -100vw;
+    left: 100vw;
     width: auto;
 
     opacity: 0;
@@ -101,4 +101,15 @@ input[type="number"] {
 
     opacity: 1;
     transition: opacity 0.25s;
+}
+
+.menu-title {
+    color: black;
+}
+
+
+@media (max-width: 991px) {
+    html {
+        overflow-x: hidden;
+    }
 }

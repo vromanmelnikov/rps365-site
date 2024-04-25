@@ -31,6 +31,7 @@
 
         label {
             width: 100% !important;
+            justify-content: space-between !important;
         }
     }
 
@@ -61,4 +62,26 @@
 
 .sendMailDone {
     position: fixed;
+}
+
+@media (max-width: 991px) {
+    .main {
+        width: 100%;
+    }
+
+    .content {
+    
+        .input {
+            width: 100%;
+
+            label {
+                justify-content: space-between !important;
+
+                input {
+                    width: 90%;
+                }
+            }
+        }
+    
+    }
 }

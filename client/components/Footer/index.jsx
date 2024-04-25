@@ -114,8 +114,8 @@ export default function Footer() {
           <div className={`${styles.main}`}>
             <div className={`${styles.item}`}>
               <h3>Наши контакты <PhoneEnabledOutlinedIcon fontSize="small" /></h3>
-              <p>8 999 999 99 99</p>
-              <p>8 999 999 99 99</p>
+              <a href="tel:8(8412)608-228">8 (8412) 608-228</a>
+              <a href="tel:8(8412)700-495">8 (8412) 700-495</a>
             </div>
             <div className={`${styles.item}`}>
               <h3>Наш адрес <RouteIcon fontSize="small" /></h3>

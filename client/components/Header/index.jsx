@@ -3,13 +3,70 @@ import MainStyles from "../../styles/Main.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import PhoneEnabledOutlinedIcon from "@mui/icons-material/PhoneEnabledOutlined";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import CartMenu from "./CartMenu";
 // import { categories } from "shared/static/static";
 
 import logo from 'public/images/logo.jpg'
 import { CATEGORIES_URL } from "shared/api.config";
+import MobileMenu from "./MobileMenu";
 // import { CATEGORIES_URL } from "shared/api.config";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+function CollapsedMenu({ children }) {
+
+  const id = useId()
+
+  function toggleCollapseTitle(event) {
+    const collapseContent = document.getElementById(`collapseContent_${id}`)
+    const icon = document.getElementById(`icon_${id}`)
+    const opened = collapseContent.getAttribute('opened')
+    if (opened === '') {
+      collapseContent.removeAttribute('opened')
+      icon.style.rotate = '0deg'
+    }
+    else {
+      collapseContent.setAttribute('opened', '')
+      icon.style.rotate = '180deg'
+    }
+  }
+
+  return (
+    <ul className={`${styles.categories} menu bg-base-200 w-full rounded-box `}>
+      <li >
+        <h2 className="menu-title" onClick={toggleCollapseTitle}>Каталог <KeyboardArrowDownIcon id={`icon_${id}`} /></h2>
+        <ul className={`${styles.collapseContent}`} id={"collapseContent_" + id}>
+          {children}
+        </ul>
+      </li>
+    </ul>
+  )
+}
+
+function CatalogMenu({ categories }) {
+
+  return (
+    <CollapsedMenu>
+      <li>
+        <Link href={'/catalog'} style={{ fontWeight: '500' }}>
+          Все
+        </Link>
+      </li>
+      {
+        categories.map((item, index) => {
+          return (
+            <li key={index}>
+              <Link href={item.href} >
+                {item.name}
+              </Link>
+            </li>
+          );
+        })
+      }
+    </CollapsedMenu >
+  )
+}
 
 export default function Header() {
   const links = [
@@ -105,13 +162,43 @@ export default function Header() {
             </div>
           </div>
           <div className={styles.functionals}>
-            {/* <div className={`${styles.cartBlock} btn btn-circle `}>
-              <div className="indicator">
-                <FavoriteBorderIcon fontSize="large" />
-              </div>
-            </div> */}
             <CartMenu />
+            <MobileMenu />
           </div>
+        </section>
+      </div>
+      <div className={`${styles.mobileMenuWrapper}`}>
+        <section className={`${MainStyles.container} ${styles.mobileMenu}`} id="mobileMenu">
+          <CatalogMenu categories={categories} />
+          <ul className={`${styles.categories} menu bg-base-200 w-full rounded-box `}>
+            <li >
+              <h2 className="menu-title" >Свяжитесь с нами <PhoneEnabledOutlinedIcon fontSize="small" /></h2>
+              <ul >
+                <li>
+                  <Link href="tel:8(8412)608-228">8 (8412) 608-228</Link>
+                </li>
+                <hr />
+                <li>
+                  <Link href="tel:8(8412)700-495">8 (8412) 700-495</Link>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul className={`${styles.categories} menu bg-base-200 w-full rounded-box `}>
+            <li >
+              <h2 className="menu-title" >Наш адрес <PhoneEnabledOutlinedIcon fontSize="small" /></h2>
+              <ul >
+                <li >
+                  {/* <ArrowForwardIcon style={{color: 'black'}}/> */}
+                  <Link style={{fontWeight: '500'}} target='_blank' href='https://yandex.ru/maps/11098/zarechny/?ll=45.174128%2C53.205237&mode=routes&rtext=~53.205237%2C45.174129&rtt=mt&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgo0MDM2Njk1NjQwEmbQoNC-0YHRgdC40Y8sINCf0LXQvdC30LXQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCDQl9Cw0YDQtdGH0L3Ri9C5LCDRg9C70LjRhtCwIDIwLdGPINCU0L7RgNC-0LPQsCwgMzMiCg1OsjRCFSrSVEI%2C&z=16.7'>г. Заречный, ул. 20-ая дорога, д. 33</Link>
+                </li>
+                <hr />
+                <li>
+                  <a>Пн-Сб: 10:00-19:00</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </section>
       </div>
       <div className={styles.destinyBack}>

@@ -141,3 +141,25 @@
         padding: .275rem .75rem;
     }
 }
+
+@media (max-width: 991px) {
+    .main {
+        flex-direction: column;
+    }
+
+    .photos {
+        width: 100%;
+    }
+
+    .mainInfo {
+        width: 100%;
+    }
+
+    .btns {
+
+        button {
+            margin: 0;
+            width: 100%;
+        }
+    }
+}

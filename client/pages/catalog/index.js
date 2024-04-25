@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { CATEGORIES_URL, ITEMS_URL, TAGS_URL } from "shared/api.config";
 
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import CloseIcon from '@mui/icons-material/Close';
+
 const NO_FILTERS = {
   sorting: 'COST_UP',
   cost: {
@@ -114,6 +117,18 @@ export default function Catalog({ items, tags, costRange, categories }) {
     setFilters(NO_FILTERS)
   }
 
+  function openFilters() {
+    const filters = document.getElementById('filters')
+    console.log(filters)
+    const opened = filters.getAttribute('opened')
+    if (opened === '') {
+      filters.removeAttribute('opened')
+    }
+    else {
+      filters.setAttribute('opened', '')
+    }
+  }
+
   const title = "Каталог";
 
   return (
@@ -128,10 +143,11 @@ export default function Catalog({ items, tags, costRange, categories }) {
            разводок от воздействия внешних факторов'>
         </meta>
         <meta charSet="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Layout>
         <main className={`${styles.main}`} data-theme="mytheme">
-          <div className="text-sm breadcrumbs">
+          <div className={`${styles.breadcrumbs} text-sm breadcrumbs`}>
             <ul>
               <li>
                 <a>Главная</a>
@@ -140,6 +156,11 @@ export default function Catalog({ items, tags, costRange, categories }) {
                 <b>Каталог</b>
               </li>
             </ul>
+            <label  className={`${styles.filterToggler} btn btn-primary btn-circle btn-sm swap swap-rotate`} >
+              <input type="checkbox" onChange={openFilters}/>
+              <FilterAltIcon className="swap-off fill-current"/>
+              <CloseIcon className="swap-on fill-current"/>              
+            </label>
           </div>
           <div className={`${styles.catalog}`}>
             <CatalogFilters tags={tags} filters={filters} costRange={costRange} changeFilters={changeFilters} clearFilters={clearFilters} />

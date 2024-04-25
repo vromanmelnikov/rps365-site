@@ -26,3 +26,9 @@
 .color_header {
     color: $white-color;
 }
+
+@media (max-width: 991px) {
+    .header {
+        font-size: 1.5rem;
+    }
+}

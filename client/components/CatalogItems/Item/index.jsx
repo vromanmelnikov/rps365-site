@@ -47,7 +47,7 @@ export default function Item({ item }) {
   const images = item.types.map(type => type.images[0])
 
   return (
-    <div className={`${styles.item}`}>
+    <div className={`${styles.item} shadow-xl bg-base-200`}>
       <Link href={`/product/${item.id}`}>
         <Images images={images} />
       </Link>

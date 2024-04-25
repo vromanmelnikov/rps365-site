@@ -54,12 +54,12 @@ export default function CatalogFilters({ tags, filters, costRange, changeFilters
       if (name === 'max') {
         cost.max = cost.min + 10
       }
-      else if(name === 'min') {
+      else if (name === 'min') {
         cost.min = cost.max - 10
       }
     }
 
-    if (validMin === false || validMax === false || minMoreMax ) {
+    if (validMin === false || validMax === false || minMoreMax) {
 
       cost = {
         min: isNaN(cost.min) ? '' : cost.min.toString(),
@@ -89,7 +89,7 @@ export default function CatalogFilters({ tags, filters, costRange, changeFilters
   }
 
   return (
-    <aside className={`${styles.filterSide}`}>
+    <aside className={`${styles.filterSide}`} id="filters">
       <div className={`${styles.filterBtn}`}>
         <span className={`${styles.type}`}>Фильтр</span>
         <span className={`pointer`} onClick={clearFilters}>Сбросить</span>
@@ -143,11 +143,12 @@ export default function CatalogFilters({ tags, filters, costRange, changeFilters
           valueLabelDisplay="auto"
           min={costRange.min}
           max={costRange.max}
+          className={`${styles.slider}`}
         />
       </div>
       <div className={`${styles.filter}`}>
         <span className={`${styles.type}`}>Теги</span>
-        <Tags tags={tags} changeTags={changeTags} choosenTags={filters.tags}/>
+        <Tags tags={tags} changeTags={changeTags} choosenTags={filters.tags} />
       </div>
       <button className={`btn btn-success btn-sm ${styles.saveBtn}`} onClick={saveFilters}>Сохранить</button>
     </aside>
