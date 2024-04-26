@@ -69,11 +69,11 @@ export default function Footer() {
 
         <hr className={`${styles.divider}`} />
 
-        <nav className={`${styles.pages}`}>
+        {/* <nav className={`${styles.pages}`}>
           <a href="/catalog">Каталог</a>
           <a href="/#about">О нас</a>
           <a href="">Галерея</a>
-        </nav>
+        </nav> */}
 
         <nav className={`${styles.info}`}>
           <div className={`${styles.media}`}>
@@ -124,6 +124,8 @@ export default function Footer() {
             </div>
           </div>
         </nav>
+
+        <hr className={`${styles.divider}`} />
 
         <aside className={`${styles.bottom}`}>
           <p>© ООО &#34;РЕПЛАСТ 365&#34;. Все права защищены</p>

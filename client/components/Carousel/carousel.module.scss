@@ -22,11 +22,11 @@
         flex-grow: 1;
         height: 200px;
         // background-color: black;
-        overflow-x: hidden;
+        overflow-x: scroll;
 
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         gap: 1rem;
 
         scroll-snap-type: x mandatory;

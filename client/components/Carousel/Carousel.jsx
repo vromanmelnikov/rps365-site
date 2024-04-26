@@ -9,7 +9,7 @@ import { STATIC_URL } from 'shared/api.config';
 
 export default function Carousel({ images, height, expanded }) {
 
-    const id = useId()
+    const id = useId().replaceAll(':', '')
     const [loadCounter, setLoadcounter] = useState(0)
     const [currImage, setCurrImage] = useState(null)
     const [expandFlag, setExpandFlag] = useState(false)
@@ -17,8 +17,10 @@ export default function Carousel({ images, height, expanded }) {
     useEffect(
         () => {
             if (loadCounter === images.length) {
-                const div = document.getElementById(id)
-                div.scrollTo({ left: (div.scrollWidth - div.clientWidth) / 2, top: 0 })
+                const middleImageIndex = parseInt(images.length / 2)
+                const carousel = document.getElementById(id)
+                const middleImage = carousel.querySelector(`#image_${id}_${middleImageIndex}`)
+                carousel.scrollTo({ left: middleImage.offsetLeft - middleImage.width / 2 })
             }
         }, [loadCounter]
     )
@@ -49,10 +51,6 @@ export default function Carousel({ images, height, expanded }) {
         else {
             div.scrollBy({ left: (div.scrollWidth / images.length), top: 0, behavior: 'smooth' })
         }
-    }
-
-    function openModal() {
-        document.getElementById(`carousel_modal_${id}`).showModal()
     }
 
     function prevImage() {
@@ -114,7 +112,10 @@ export default function Carousel({ images, height, expanded }) {
                                     height={0}
                                     alt='photo'
                                     key={index}
-                                    className={`${styles.image}`}></Image>
+                                    className={`${styles.image}`}
+                                    id={`image_${id}_${index}`}
+                                />
+
                             )
                         })
                     }

@@ -147,10 +147,14 @@
                 margin-left: 20rem;
             }
 
-            .line {
+            .lineHor {
                 margin: 0;
                 margin-top: 1rem;
                 height: auto;
+            }
+            
+            .numbersHor {
+                display: none;
             }
 
         }
@@ -179,32 +183,91 @@
 @media (max-width: 991px) {
     .info {
 
-        .desc {}
+        height: calc(100vh - 7rem);
+
+        .desc {
+            display: none;
+        }
 
         .title {
 
+            margin-bottom: 30%;
+
+            width: 100%;
+
             .words {
 
+                row-gap: 0;
+
+                width: 100%;
+
                 .menu {
+
+                    width: 100%;
+
+                    margin-top: 0.5rem !important;
 
                     .word {
                         font-size: 3rem;
                     }
+
+                    .dropdown {
+                        width: 100%;
+
+                        &:hover .dropdown {
+                            max-height: 200px;
+                            // transition: max-height 0.5s linear;
+                        }
+                    }
                 }
 
-
-
                 .word_1 {
-                    margin-right: 2rem;
+                    margin-right: 0;
+                    position: relative;
                 }
 
                 .word_2 {
-                    margin-left: 11rem;
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding-left: 20%;
                 }
 
                 .word_3 {
-                    margin-left: 18rem;
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding-left: 53%;
                 }
+
+                .lineHor {
+                    // display: none;
+                    order: -1;
+                    width: 100%;
+                    position: relative;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    margin-top: 0;
+                    margin-bottom: 1rem;
+                }
+
+                .numbersHor {
+                    display: block;
+                    width: 300px;
+                    order: -2;
+                    text-align: end;
+                    font-size: 2rem;
+                }
+            }
+
+            .line {
+                display: none;
+                // width: 50%;
+                // position: relative;
+                // left: 50%;
+                // transform: translateX(-50%);
+            }
+
+            .numbers {
+                display: none;
             }
         }
     }

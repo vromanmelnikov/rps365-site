@@ -63,7 +63,10 @@ export default function TitleBlock({ products }) {
                                 <span>АЛЬ</span>
                             </span>
                         </WordMenu>
-                        <div className={`${styles.line} divider divider-primary`}></div>
+                        <div className={`${styles.lineHor} divider divider-primary`}></div>
+                        <div className={`${styles.numbersHor}`}>
+                            365
+                        </div>
                     </div>
                     <div className={`${styles.line} divider divider-primary divider-horizontal`}></div>
                     <div className={`${styles.numbers}`}>
@@ -71,8 +74,8 @@ export default function TitleBlock({ products }) {
                     </div>
                 </div>
                 <p className={`${styles.desc}`}>
-                    Компания "РЕПЛАСТ-365" предлагает уникальное решение для проблем, связанных с герметизацией. 
-                    Мы специализируемся на разработке и обеспечении надежной герметизации технических сетей, 
+                    Компания "РЕПЛАСТ-365" предлагает уникальное решение для проблем, связанных с герметизацией.
+                    Мы специализируемся на разработке и обеспечении надежной герметизации технических сетей,
                     кабельных коммуникаций и трубных разводок от воздействия внешних факторов.
                 </p>
             </div>

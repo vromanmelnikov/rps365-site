@@ -29,6 +29,7 @@
 
         label {
             width: 100% !important;
+            justify-content: space-between !important;
         }
     }
 
@@ -36,4 +37,27 @@
 
 .btn {
     color: white;
+}
+
+
+@media (max-width: 991px) {
+    .main {
+        width: 100%;
+    }
+
+    .form {
+    
+        .input {
+            width: 100% !important;
+
+            label {
+                justify-content: space-between !important;
+
+                input {
+                    width: 90%;
+                }
+            }
+        }
+    
+    }
 }
