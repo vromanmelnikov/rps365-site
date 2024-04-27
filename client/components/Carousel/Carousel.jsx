@@ -7,16 +7,22 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { STATIC_URL } from 'shared/api.config';
 
+function CarouselDialog() {
+
+}
+
 export default function Carousel({ images, height, expanded }) {
 
     const id = useId().replaceAll(':', '')
     const [loadCounter, setLoadcounter] = useState(0)
+    const [loaded, setLoaded] = useState(false)
     const [currImage, setCurrImage] = useState(null)
     const [expandFlag, setExpandFlag] = useState(false)
 
     useEffect(
         () => {
             if (loadCounter === images.length) {
+                // conso
                 const middleImageIndex = parseInt(images.length / 2)
                 const carousel = document.getElementById(id)
                 const middleImage = carousel.querySelector(`#image_${id}_${middleImageIndex}`)
@@ -54,6 +60,7 @@ export default function Carousel({ images, height, expanded }) {
     }
 
     function prevImage() {
+        setLoaded(false)
         if (currImage !== 0) {
             setCurrImage(prev => prev - 1)
         }
@@ -63,6 +70,7 @@ export default function Carousel({ images, height, expanded }) {
     }
 
     function nextImage() {
+        setLoaded(false)
         if (currImage !== images.length - 1) {
             setCurrImage(prev => prev + 1)
         }
@@ -89,6 +97,10 @@ export default function Carousel({ images, height, expanded }) {
         }
     }
 
+    function onModalImageLoad(event) {
+        console.log('end load', event)
+        setLoaded(true)
+    }
     return (
         <div className={`${styles.carousel}`}>
             <div className={`${styles.main}`}>
@@ -104,7 +116,8 @@ export default function Carousel({ images, height, expanded }) {
                                     onClick={() => {
                                         setCurrImage(index)
                                     }}
-                                    loading='lazy' onLoad={e => {
+                                    loading='lazy'
+                                    onLoad={e => {
                                         setLoadcounter(prev => prev + 1)
                                     }}
                                     src={`${STATIC_URL}/${item.url}`}
@@ -177,8 +190,20 @@ export default function Carousel({ images, height, expanded }) {
                     </span>
                     {
                         currImage !== null &&
-                        <Image src={`${STATIC_URL}/${images[currImage].url}`} width={1024} height={'100'} alt='Выбранное фото' className={`${styles.modalImage}`} />
+                        <Image
+                            src={`${STATIC_URL}/${images[currImage].url}`}
+                            width={1024}
+                            height={'400'}
+                            alt='Выбранное фото'
+                            className={`${styles.modalImage}`}
+                            onLoad={onModalImageLoad}
+                        />
                     }
+                    {
+                        loaded === false &&
+                        <span className={`${styles.modalLoading} loading loading-dots loading-lg`}></span>
+                    }
+                    {/* <span className={`${styles.modalLoading} loading loading-dots loading-lg`}></span> */}
                     <span onClick={() => nextImage()} className={`${styles.rightArrow} btn btn-circle `}>
                         <ArrowBackIcon />
                     </span>
