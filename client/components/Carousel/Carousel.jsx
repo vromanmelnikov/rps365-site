@@ -19,12 +19,16 @@ export default function Carousel({ images, height, expanded }) {
     const [currImage, setCurrImage] = useState(null)
     const [expandFlag, setExpandFlag] = useState(false)
 
+    const [currImageIndex, setCurrImageIndex] = useState(null)
+
     useEffect(
         () => {
             if (loadCounter === images.length) {
                 // conso
                 const middleImageIndex = parseInt(images.length / 2)
+                setCurrImageIndex(middleImageIndex)
                 const carousel = document.getElementById(id)
+                // carousel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
                 const middleImage = carousel.querySelector(`#image_${id}_${middleImageIndex}`)
                 carousel.scrollTo({ left: middleImage.offsetLeft - middleImage.width / 2 })
             }
@@ -37,31 +41,53 @@ export default function Carousel({ images, height, expanded }) {
                 try {
                     document.getElementById(`carousel_modal_${id}`).showModal()
                 }
-                catch(error) {
+                catch (error) {
 
                 }
             }
         }, [currImage]
     )
 
+    useEffect(
+        () => {
+            console.log(currImageIndex)
+        }, [currImageIndex]
+    )
+
     function goToLeft() {
-        const div = document.getElementById(id)
-        if (div.scrollLeft === 0) {
-            div.scrollBy({ left: div.scrollWidth, top: 0, behavior: 'smooth' })
-        }
-        else {
-            div.scrollBy({ left: -(div.scrollWidth / images.length), top: 0, behavior: 'smooth' })
-        }
+
+        // const div = document.getElementById(id)
+
+        const newIndex = currImageIndex === 0 ? images.length - 1 : currImageIndex - 1
+        const newImage = document.getElementById(`image_${id}_${newIndex}`)
+        newImage.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'})
+        setCurrImageIndex(newIndex)
+
+
+        // if (div.scrollLeft === 0) {
+        //     div.scrollBy({ left: div.scrollWidth, top: 0, behavior: 'smooth' })
+        // }
+        // else {
+        //     div.scrollBy({ left: -(div.scrollWidth / images.length), top: 0, behavior: 'smooth' })
+        // }
     }
 
     function goToRight() {
-        const div = document.getElementById(id)
-        if (div.scrollWidth - div.clientWidth - div.scrollLeft < 5) {
-            div.scrollBy({ left: -div.scrollWidth, top: 0, behavior: 'smooth' })
-        }
-        else {
-            div.scrollBy({ left: (div.scrollWidth / images.length), top: 0, behavior: 'smooth' })
-        }
+
+
+        // const div = document.getElementById(id)
+
+        const newIndex = currImageIndex === images.length - 1 ? 0 : currImageIndex + 1
+        const newImage = document.getElementById(`image_${id}_${newIndex}`)
+        newImage.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'})
+        setCurrImageIndex(newIndex)
+
+        // if (div.scrollWidth - div.clientWidth - div.scrollLeft < 5) {
+        //     div.scrollBy({ left: -div.scrollWidth, top: 0, behavior: 'smooth' })
+        // }
+        // else {
+        //     div.scrollBy({ left: (div.scrollWidth / images.length), top: 0, behavior: 'smooth' })
+        // }
     }
 
     function prevImage() {
@@ -103,7 +129,6 @@ export default function Carousel({ images, height, expanded }) {
     }
 
     function onModalImageLoad(event) {
-        console.log('end load', event)
         setLoaded(true)
     }
     return (
