@@ -34,7 +34,12 @@ export default function Carousel({ images, height, expanded }) {
     useEffect(
         () => {
             if (currImage !== null) {
-                document.getElementById(`carousel_modal_${id}`).showModal()
+                try {
+                    document.getElementById(`carousel_modal_${id}`).showModal()
+                }
+                catch(error) {
+
+                }
             }
         }, [currImage]
     )
