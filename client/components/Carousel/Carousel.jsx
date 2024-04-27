@@ -22,7 +22,7 @@ export default function Carousel({ images, height, expanded }) {
     useEffect(
         () => {
             if (loadCounter === images.length) {
-                conso
+                // conso
                 const middleImageIndex = parseInt(images.length / 2)
                 const carousel = document.getElementById(id)
                 const middleImage = carousel.querySelector(`#image_${id}_${middleImageIndex}`)
