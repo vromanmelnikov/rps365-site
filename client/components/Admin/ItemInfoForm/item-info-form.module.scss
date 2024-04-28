@@ -1,0 +1,32 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.type {
+    .images {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        column-gap: .75rem;
+        row-gap: .75rem;
+
+        button {
+            margin-right: .5rem;
+        }
+
+        img {
+            width: auto;
+            height: 100px;
+        }
+    }
+}
+
+.submitBtn {
+    position: fixed;
+    right: 5rem;
+    bottom: 5rem;
+}

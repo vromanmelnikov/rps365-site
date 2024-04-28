@@ -10,7 +10,7 @@ export default function Feedbacks({feedbacks}) {
             <div className={`${mainPageStyles.background}`}></div>
             <div className={`${mainPageStyles.content} ${styles.content}`}>
                 <h2 className={`${mainPageStyles.header} ${mainPageStyles.color_header}`}>Отзывы наших клиентов</h2>
-                <Carousel images={feedbacks} height={'25rem'} expanded={false}/>
+                <Carousel images={feedbacks} height={'30rem'} expanded={false}/>
             </div>
         </section>
     )

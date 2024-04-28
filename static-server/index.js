@@ -16,17 +16,12 @@ server.get('/static/test', (req, res) => {
     res.send('/static/test').status(200).end()
 })
 
-server.get('/test', (req, res) => {
-
-    res.send('/static/test').status(200).end()
-})
-
 const storageConfig = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "public");
     },
     filename: (req, file, cb) => {
-        req.fileName = Date.now() + '.jpg'
+        req.fileName = file.originalname
         cb(null, req.fileName);
     }
 });

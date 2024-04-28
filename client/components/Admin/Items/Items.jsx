@@ -2,7 +2,11 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { ITEMS_URL } from "shared/api.config"
 
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 import styles from './items.module.scss'
+import Link from "next/link";
 
 function Item({ item }) {
 
@@ -36,16 +40,36 @@ export default function Items() {
     )
 
     return (
-        <div className={`${styles.items}`}>
-            {
-                items.map(
-                    (item, index) => {
-                        return (
-                            <Item key={index} item={item} />
+        <div className="overflow-x-auto">
+            <table className="table">
+                {/* head */}
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        items.map(
+                            (item, index) => {
+                                return(
+                                    <tr key={index}>
+                                        <th>{item.id}</th>
+                                        <td>{item.title}</td>
+                                        <td>{item.subtitle}</td>
+                                        <td ><Link href={``} className={`btn btn-circle btn-warning btn-sm`}><EditIcon /></Link></td>
+                                        <td><Link href={``} className={`btn btn-circle  btn-error btn-sm`}><DeleteForeverIcon /></Link></td>
+                                    </tr>
+                                )
+                            }
                         )
                     }
-                )
-            }
+                </tbody>
+            </table>
         </div>
     )
 }

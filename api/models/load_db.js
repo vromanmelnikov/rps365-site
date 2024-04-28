@@ -5,7 +5,7 @@ const Categories = require('./Categories');
 const Tags = require('./Tags');
 const StaticImages = require('./StaticImages');
 
-const logStream = fs.createWriteStream('./sql.log', {'flags': 'a'});
+const logStream = fs.createWriteStream('./sql.log', { 'flags': 'a' });
 
 const db = new Sequelize({
     dialect: 'sqlite',
@@ -14,11 +14,11 @@ const db = new Sequelize({
 });
 
 // db.dropAllSchemas()
- 
+
 initModels(db);
 
 async function loadCategories() {
-    await Categories.sync({force: true})
+    await Categories.sync({ force: true })
     // await Categories
     return Categories.bulkCreate([
         {
@@ -31,13 +31,13 @@ async function loadCategories() {
         },
         {
             name: 'steel',
-            rusName: 'Сталь'   
+            rusName: 'Сталь'
         },
     ])
 }
 
 async function loadTags() {
-    await Tags.sync({force: true})
+    await Tags.sync({ force: true })
     await Tags.bulkCreate([
         {
             name: 'Для бетона/фундамента'
@@ -46,13 +46,13 @@ async function loadTags() {
             name: 'Для фанеры/дерева'
         },
         {
-            name: 'Для металла' 
+            name: 'Для металла'
         },
     ])
 }
 
 async function loadStaticImages() {
-    await StaticImages.sync({force: true})
+    await StaticImages.sync({ force: true })
     await StaticImages.bulkCreate([
         {
             "url": "sertificat_1.jpg",
@@ -165,12 +165,12 @@ async function loadStaticImages() {
     async function () {
         try {
             await db.authenticate();
-                // await db.sync({force: true})    
+            // await db.sync({force: true})    
 
-                // await loadCategories() 
-                // await loadTags()
+            // await loadCategories() 
+            // await loadTags()
 
-                await loadStaticImages()
+            await loadStaticImages()
 
             console.log('Connection has been established successfully.');
         } catch (error) {
