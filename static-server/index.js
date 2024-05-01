@@ -34,6 +34,25 @@ server.post('/static/upload', (req, res) => {
  
 })
 
+server.delete('/static', async (req, res) => {
+
+    if (req.query.url === 'EMPTY_IMAGE.png') {
+        res.status(503).end()
+    }
+    else {
+        const url = path.resolve(__dirname, 'public', req.query.url)
+
+        try {
+            fs.unlinkSync(url)
+            res.status(200).end()
+            
+        } catch(err) {
+            res.status(500).end()
+        }
+    }
+
+})
+
 const port = 8080
 server.listen(
     port, () => {

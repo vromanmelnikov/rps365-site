@@ -3,6 +3,7 @@ import styles from "./item-info-form.module.scss";
 import { useEffect, useState } from "react";
 import {
     CATEGORIES_URL,
+    ITEM_IMAGES_URL,
     ITEM_TYPES_URL,
     ITEMS_URL,
     PROPERTIES_URL,
@@ -18,6 +19,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import { useRouter } from "next/router";
 
 async function getCategories() {
     const myHeaders = new Headers();
@@ -147,15 +149,19 @@ function TypeInfo({
                     <button
                         style={{ color: "white" }}
                         className="btn btn-circle btn-success btn-sm"
-                        onClick={addImage}
                     >
-                        <AddIcon />
+                        <AddIcon onClick={addImage} />
                     </button>
                     {type.images.map((item, imgIndex) => {
-                        const src =
-                            item.id === undefined
-                                ? item.url
-                                : `${STATIC_URL}/${item.url}`;
+
+                        let src = ''
+
+                        if (item.id !== undefined) {
+                            src = `${STATIC_URL}/${item.url}`
+                        }
+                        else {
+                            src = item.url
+                        }
 
                         return (
                             <div className={`${styles.image}`} key={imgIndex}>
@@ -251,6 +257,8 @@ function Property({
 }
 
 export default function ItemInfoForm({ itemInfo }) {
+    const router = useRouter()
+
     const [item, setItem] = useState({
         title: "Муфта проходная герметичная РПС",
         subtitle: "Крепление на саморезах и забивных анкерах",
@@ -382,24 +390,58 @@ export default function ItemInfoForm({ itemInfo }) {
     }
 
     function deleteImage(typeIndex, imageIndex) {
+
         let types = item.types;
         let type = types[typeIndex];
 
-        const imageId = type.images[imageIndex].id;
+        const image = type.images[imageIndex];
 
         type.images = type.images.filter((img, index) => index !== imageIndex);
+
+        if (type.images.length === 0) {
+            type.images.push({
+                url: 'EMPTY_IMAGE.png'
+            })
+        }
+
         types[typeIndex] = type;
 
-        if (itemInfo === undefined || imageId === undefined) {
+        if (itemInfo === undefined || image?.id === undefined) {
+
             setItem({
                 ...item,
                 types,
             });
         } else {
-            setItem({
-                ...item,
-                types,
-            });
+
+            const requestOptions = {
+                method: "DELETE",
+                redirect: "follow",
+            };
+
+            fetch(`${ITEM_IMAGES_URL}/${image.id}`, requestOptions)
+                .then((response) => response.text())
+                .then((result) => {
+                    const requestOptions = {
+                        method: "DELETE",
+                        redirect: "follow",
+                    };
+
+                    fetch(`${STATIC_URL}?url=${image.url}`, requestOptions)
+                        .then((response) => response.text())
+                        .then((result) => {
+                            setItem({
+                                ...item,
+                                types,
+                            });
+
+                            // if (type.images.length === 0) {
+                            //     onSubmit()
+                            // }
+                        })
+                        .catch((error) => console.error(error));
+                })
+                .catch((error) => console.error(error));
         }
     }
 
@@ -604,8 +646,7 @@ export default function ItemInfoForm({ itemInfo }) {
                     });
                 } else {
                     for (let j = 0; j < images.length; j++) {
-
-                        let url = ''
+                        let url = "";
 
                         if (images[j].id === undefined) {
                             const formdata = images[j].formData;
@@ -615,16 +656,15 @@ export default function ItemInfoForm({ itemInfo }) {
                                 body: formdata,
                                 redirect: "follow",
                             };
-    
+
                             url = await fetch(
                                 STATIC_UPLOAD_URL,
                                 requestOptions
                             ).then((response) => response.text());
+                        } else {
+                            url = images[j].url;
                         }
-                        else {
-                            url = images[j].url
-                        }
-                        
+
                         images[j] = {
                             url,
                         };
@@ -646,12 +686,14 @@ export default function ItemInfoForm({ itemInfo }) {
                 redirect: "follow",
             };
 
-            console.log(newItem)
+            console.log(newItem);
             // return
 
             fetch(`${ITEMS_URL}/${newItem.id}`, requestOptions)
                 .then((response) => response.text())
-                .then((result) => console.log(result))
+                .then((result) => {
+                    router.reload()
+                })
                 .catch((error) => console.error(error));
         }
     }
