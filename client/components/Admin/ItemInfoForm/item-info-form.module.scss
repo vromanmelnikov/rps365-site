@@ -30,3 +30,18 @@
     right: 5rem;
     bottom: 5rem;
 }
+
+.properties {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.property {
+    display: flex;
+    column-gap: 1rem;
+
+    div {
+        flex-grow: 1;
+    }
+}

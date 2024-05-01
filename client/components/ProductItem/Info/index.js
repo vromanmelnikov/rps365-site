@@ -28,12 +28,12 @@ export default function Info({properties}) {
       {sectionID === "section_1" && 
       <div className={`${styles.attrs}`}>
         {
-          Object.keys(properties).map((key, index) => {
+          properties.map((item, index) => {
             return(
               <div className={`${styles.attr}`} key={index}>
-                <span className={`${styles.key}`}>{key}: </span>
+                <span className={`${styles.key}`}>{item.name}: </span>
                 <div className={`${styles.line}`}></div>
-                <span className={`${styles.value}`}>{properties[key]}</span>
+                <span className={`${styles.value}`}>{item.value}</span>
               </div>
             )
           })

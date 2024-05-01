@@ -4,6 +4,7 @@ const cors = require('cors')
 const multer = require('multer')
 const bodyParser = require('body-parser')
 const fs = require('fs')
+const path = require('path')
 
 const server = express()
 server.use(cors())
@@ -21,7 +22,7 @@ const storageConfig = multer.diskStorage({
         cb(null, "public");
     },
     filename: (req, file, cb) => {
-        req.fileName = file.originalname
+        req.fileName = `${Date.now()}${path.extname(file.originalname) }` 
         cb(null, req.fileName);
     }
 });

@@ -29,15 +29,15 @@ function initModels(sequelize) {
     Items.hasOne(Services)
     Services.belongsTo(Items)
 
-    //свойства
+    // //свойства
     Properties.init(sequelize, DataTypes)
-    PropertyNames.belongsToMany(PropertyValues, {through: Properties})
-    PropertyValues.belongsToMany(PropertyNames, {through: Properties})
+    // PropertyNames.belongsToMany(PropertyValues, {through: Properties})
+    // PropertyValues.belongsToMany(PropertyNames, {through: Properties})
 
     //свойства товаров
-    ItemsProperties.init(sequelize, DataTypes)
-    Items.belongsToMany(Properties, { through: ItemsProperties, as: 'properties' })
-    Properties.belongsToMany(Items, { through: ItemsProperties, as: 'items' })
+    // ItemsProperties.init(sequelize, DataTypes)
+    Items.hasMany(Properties, { onDelete: 'cascade', as: 'properties' })
+    Properties.belongsTo(Items)
 
     Items.hasMany(ItemTypes, { onDelete: 'cascade', as: 'types' })
     ItemTypes.belongsTo(Items)

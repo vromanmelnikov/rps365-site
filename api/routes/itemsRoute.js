@@ -40,10 +40,11 @@ const itemsOptions = {
             },
         },
         {
-            association: 'properties',
-            through: {
-                attributes: []
-            },
+            model: Properties,
+            as: 'properties',
+            attributes: {
+                exclude: ['itemId']
+            }
         }
     ],
     attributes: {
@@ -92,7 +93,7 @@ itemsRoute.get('/', async (req, res) => {
     for (let i = 0; i < items.length; i++) {
 
 
-        items[i].properties = await getItemProperties(items[i])
+        // items[i].properties = await getItemProperties(items[i])
 
         const typesCosts = items[i].types.map(type => type.cost)
         const min = Math.min(...typesCosts)
@@ -159,13 +160,37 @@ itemsRoute.get('/categories', async (req, res) => {
     res.status(200).json(result).end()
 })
 
-itemsRoute.get('/:id', async (req, res) => {
+itemsRoute.get('/properties', async (req, res) => {
 
-    const id = parseInt(req.params.id)
-    let item = (await Items.findOne({ ...itemsOptions, where: { id } })).toJSON()
-    item.properties = await getItemProperties(item)
+    try {
+        let properties = (await Properties.findAll()).map(item => item.toJSON())
 
-    res.json(item).status(200).end()
+        let names = []
+        let values = []
+
+        for (let i = 0; i < properties.length; i++) {
+            const name = properties[i].name
+            const value = properties[i].value
+
+            if (names.includes(name) === false) {
+                names.push(name)
+            }
+
+            if (values.includes(value) === false) {
+                values.push(value)
+            }
+
+        }
+
+        res.json({ names, values }).status(200)
+
+        // res.json(properties).status(200)
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).end()
+    }
+
 })
 
 itemsRoute.get('/types', async (req, res) => {
@@ -173,6 +198,32 @@ itemsRoute.get('/types', async (req, res) => {
     const items = await ItemTypes.findAll()
 
     res.json(items).status(200)
+})
+
+itemsRoute.get('/tags/:id', async (req, res) => {
+    const ItemId = req.params.id
+
+    const tags = await ItemsTags.findAll({
+        where: { ItemId }
+    })
+
+    res.json(tags).end()
+})
+
+itemsRoute.get('/:id', async (req, res) => {
+
+    try {
+
+        const id = parseInt(req.params.id)
+        let item = (await Items.findOne({ ...itemsOptions, where: { id } })).toJSON()
+        // item.properties = await getItemProperties(item)
+
+        res.json(item).status(200).end()
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).end()
+    }
 })
 
 itemsRoute.post('/', async (req, res) => {
@@ -222,44 +273,20 @@ itemsRoute.post('/', async (req, res) => {
     })
     await item.addTags(tags, { through: ItemsTags })
 
-    let names = Object.keys(data.properties)
-    let values = Object.values(data.properties)
+    let properties = Object.keys(data.properties).map(
+        (key) => {
+            return ({
+                name: key,
+                value: data.properties[key],
+                ItemId: item.id,
+            })
+        }
+    )
 
-    for (let i = 0; i < names.length; i++) {
-        const name = (await PropertyNames.findOrCreate({ where: { name: names[i] }, defaults: { name: names[i] } }))[0]
-        names[i] = name
-    }
-
-    let properties = []
-
-    for (let i = 0; i < values.length; i++) {
-        let value = (await PropertyValues.findOrCreate({ where: { value: values[i] }, defaults: { value: values[i] } }))[0]
-        values[i] = value
-
-        let property = await value.addPropertyNames(names[i])
-        property = await Properties.findOne({
-            where: {
-                PropertyValueId: value.id,
-                PropertyNameId: names[i].id
-            }
-        })
-        properties.push(property)
-    }
-
-    await item.addProperties(properties, { through: ItemsProperties })
+    await Properties.bulkCreate(properties)
 
     res.status(200).end()
 
-})
-
-itemsRoute.get('/tags/:id', async (req, res) => {
-    const ItemId = req.params.id
-
-    const tags = await ItemsTags.findAll({
-        where: { ItemId }
-    })
-
-    res.json(tags).end()
 })
 
 itemsRoute.delete('/:id', async (req, res) => {
@@ -330,6 +357,24 @@ itemsRoute.put('/types/:id', async (req, res) => {
     )
 
     res.json(result).status(200).end()
+})
+
+itemsRoute.delete('/types/:id', async (req, res) => {
+
+    const id = req.params.id
+
+    const resultCode = await ItemTypes.destroy({
+        where: {
+            id
+        }
+    })
+
+    if (resultCode === 0) {
+        res.status(404).end()
+    }
+    else if (resultCode === 1) {
+        res.status(200).end()
+    }
 })
 
 // itemsRoute.pu

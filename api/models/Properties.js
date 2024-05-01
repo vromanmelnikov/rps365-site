@@ -9,6 +9,12 @@ class Properties extends Model {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING
+            },
+            value: {
+                type: DataTypes.STRING
             }
         },
             {

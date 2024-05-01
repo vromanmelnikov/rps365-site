@@ -1,10 +1,11 @@
 import styles from './item-info-form.module.scss'
 
 import { useEffect, useState } from "react"
-import { CATEGORIES_URL, TAGS_URL } from "shared/api.config";
+import { CATEGORIES_URL, ITEMS_URL, PROPERTIES_URL, STATIC_UPLOAD_URL, TAGS_URL } from "shared/api.config";
 
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Image from 'next/image';
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -36,14 +37,44 @@ async function getTags() {
 
     const response = await fetch(TAGS_URL, requestOptions);
     const response_1 = await response.text();
+
     return JSON.parse(response_1);
 }
 
-function TypeInfo({ type, index, addImage, onTypeChange }) {
+async function getProperties() {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+
+    try {
+        const response = await fetch(PROPERTIES_URL, requestOptions);
+        const response_1 = await response.text();
+        return JSON.parse(response_1);
+    }
+    catch (err) {
+        return {
+            names: [],
+            values: []
+        }
+    }
+
+}
+
+function TypeInfo({ type, index, addImage, onTypeChange, deleteType }) {
 
     return (
         <div className={`${styles.form} ${styles.type} bg-base-200 w-full rounded-box`}>
-            <div className="divider">Тип товара #{index + 1}</div>
+            <div className="divider">
+                Тип товара #{index + 1}
+                <button className={`btn btn-circle btn-error btn-sm`} onClick={() => deleteType(index)}>
+                    <DeleteForeverIcon />
+                </button>
+            </div>
             <label className="input input-bordered flex items-center gap-2">
                 Название
                 <input
@@ -120,18 +151,59 @@ function TypeInfo({ type, index, addImage, onTypeChange }) {
     )
 }
 
+function Property({ property, index, onItemPropertyChange, properties }) {
+
+    return (
+        <div className={`${styles.property}`}>
+            <Autocomplete
+                id="name"
+                freeSolo
+                options={properties.names}
+                getOptionLabel={option => option}
+                renderInput={
+                    (params) => <TextField
+                        value={property.name}
+                        onChange={event => onItemPropertyChange(event.target.value, 'name', index)}
+                        {...params}
+                        label="Название" />
+                }
+                value={property.name}
+                onChange={(event, newValue) => onItemPropertyChange(newValue, 'name', index)}
+                isOptionEqualToValue={(option, value) => option === value}
+            />
+            <Autocomplete
+                id="value"
+                freeSolo
+                options={properties.values}
+                getOptionLabel={option => option}
+                renderInput={
+                    (params) => <TextField
+                        value={property.name}
+                        onChange={event => onItemPropertyChange(event.target.value, 'value', index)}
+                        {...params}
+                        label="Значение" />
+                }
+                value={property.value}
+                onChange={(event, newValue) => onItemPropertyChange(newValue, 'value', index)}
+                isOptionEqualToValue={(option, value) => option === value}
+            />
+        </div>
+
+    )
+}
+
 export default function ItemInfoForm({ itemInfo }) {
 
     const [item, setItem] = useState({
-        "title": "",
-        "subtitle": "",
+        "title": "Муфта проходная герметичная РПС",
+        "subtitle": "Крепление на саморезах и забивных анкерах",
         "isService": 'false',
         "types": [
             {
-                "title": "",
-                "description": "",
-                "cost": 0,
-                "itemType": "",
+                "title": "Комплектация 1",
+                "description": "1 манжета без отверстий, 1 фланец, 1 хомут, 4 самореза, 4 прорезиненные шайбы, 1 инструкция по монтажу, упаковка.",
+                "cost": 680,
+                "itemType": "шт.",
                 "images": []
             }
         ],
@@ -139,11 +211,20 @@ export default function ItemInfoForm({ itemInfo }) {
         "tags": [
             // { id: 1, name: 'Для бетона/фундамента' }
         ],
-        "properties": {},
+        "properties": [
+            {
+                name: '',
+                value: ''
+            }
+        ],
     })
 
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
+    const [properties, setProperties] = useState({
+        names: [],
+        values: []
+    })
 
     const [tagInput, setTagInput] = useState('')
 
@@ -159,6 +240,13 @@ export default function ItemInfoForm({ itemInfo }) {
             getTags().then(
                 (res) => {
                     setTags(res)
+                }
+            )
+
+            getProperties().then(
+                (res) => {
+                    console.log(res)
+                    setProperties(res)
                 }
             )
 
@@ -286,7 +374,19 @@ export default function ItemInfoForm({ itemInfo }) {
         })
     }
 
+    function deleteType(typeIndex) {
+        if (itemInfo === undefined) {
+            let types = item.types.filter((type, index) => index !== typeIndex)
+            setItem({
+                ...item,
+                types
+            })
+        }
+    }
+
     async function onSubmit() {
+
+        console.log('submit')
 
         let errors = []
 
@@ -316,14 +416,16 @@ export default function ItemInfoForm({ itemInfo }) {
 
             errors = `- ${errors.join('\n- ')}`
 
-            // alert(errors)
+            alert(errors)
 
-            // return
+            return
         }
 
         if (itemInfo === undefined) {
 
             let newItem = item
+
+            console.log(newItem)
 
             newItem.isService = newItem.isService === 'true' ? true : false
             newItem.categoryId = parseInt(newItem.categoryId)
@@ -339,7 +441,6 @@ export default function ItemInfoForm({ itemInfo }) {
                 else {
                     for (let j = 0; j < images.length; j++) {
                         const formdata = images[j].formData;
-                        // formdata.append("file", fileInput.files[0]);
 
                         const requestOptions = {
                             method: "POST",
@@ -347,7 +448,7 @@ export default function ItemInfoForm({ itemInfo }) {
                             redirect: "follow"
                         };
 
-                        const url = await fetch("http://localhost:8080/static/upload", requestOptions)
+                        const url = await fetch(STATIC_UPLOAD_URL, requestOptions)
                             .then((response) => response.text())
 
                         images[j] = {
@@ -360,8 +461,65 @@ export default function ItemInfoForm({ itemInfo }) {
                 newItem.types[i].images = images
             }
 
-            console.log(newItem)
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const raw = JSON.stringify(newItem);
+
+            const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow"
+            };
+
+            fetch(ITEMS_URL, requestOptions)
+                .then((response) => response.text())
+                .then((result) => {
+                    console.log(result)
+                    alert('Добавлено!')
+                })
+                .catch((error) => console.error(error));
+
+
         }
+    }
+
+    function onItemPropertyChange(newValue, key, index) {
+
+        let properties = item.properties
+        properties[index] = {
+            ...properties[index],
+            [key]: newValue
+        }
+
+        setItem({
+            ...item,
+            properties
+        })
+    }
+
+    function addProperty() {
+        let properties = item.properties
+
+        properties.push({
+            name: '',
+            value: ''
+        })
+
+        setItem({
+            ...item,
+            properties
+        })
+    }
+
+    function deleteProperty(propIndex) {
+        let properties = item.properties.filter((item, index) => index !== propIndex)
+
+        setItem({
+            ...item,
+            properties
+        })
     }
 
     return (
@@ -414,6 +572,35 @@ export default function ItemInfoForm({ itemInfo }) {
                     }
                 </select>
             </label>
+
+            <div className={`form-contol`}>
+                <div className="label">
+                    <span className="label-text">
+                        Свойства
+                        <button className={`btn btn-circle btn-success btn-sm`} onClick={addProperty}>
+                            <AddIcon fontSize='small'/>
+                        </button>
+                    </span>
+                </div>
+                <div className={`${styles.properties}`}>
+                {
+                    item.properties.map(
+                        (item, index) => {
+                            return (
+                                <Property
+                                    key={index}
+                                    property={{ name: item.name, value: item.value }}
+                                    index={index}
+                                    properties={properties}
+                                    onItemPropertyChange={onItemPropertyChange}
+                                    deleteProperty={() => deleteProperty(index)}
+                                />
+                            )
+                        }
+                    )
+                }
+                </div>
+            </div>
             <Autocomplete
                 id="disabled-options-demo"
                 multiple
@@ -437,7 +624,7 @@ export default function ItemInfoForm({ itemInfo }) {
                 item.types.map(
                     (item, index) => {
                         return (
-                            <TypeInfo key={index} type={item} index={index} addImage={() => addImage(index)} onTypeChange={onTypeChange} />
+                            <TypeInfo key={index} type={item} index={index} addImage={() => addImage(index)} onTypeChange={onTypeChange} deleteType={deleteType} />
                         )
                     }
                 )
