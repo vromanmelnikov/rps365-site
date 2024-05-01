@@ -1,6 +1,7 @@
 import styles from './info.module.scss'
 import mainPageStyles from '../main.module.scss'
 import RouteIcon from '@mui/icons-material/Route';
+import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
 
 export default function Info() {
 
@@ -13,12 +14,12 @@ export default function Info() {
                 </div>
                 <div className={`${styles.info}`}>
                     <div className={`${styles.item}`}>
-                        <h3>Наши контакты</h3>
-                        <p>8 999 999 99 99</p>
-                        <p>8 999 999 99 99</p>
+                        <h3>Наши контакты <PhoneEnabledOutlinedIcon fontSize="small" /></h3>
+                        <a href="tel:8(8412)608-228">8 (8412) 608-228</a>
+                        <a href="tel:8(8412)700-495">8 (8412) 700-495</a>
                     </div>
                     <div className={`${styles.item}`}>
-                        <h3>Наш адрес</h3>
+                        <h3>Наш адрес <RouteIcon fontSize="small" /></h3>
                         <p>г. Заречный, ул. 20-ая дорога, д. 33</p>
                         <p>Пн-Сб: 10:00-19:00</p>
                     </div>

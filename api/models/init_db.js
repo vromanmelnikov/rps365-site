@@ -49,7 +49,7 @@ function initModels(sequelize) {
     Items.belongsTo(Categories, { as: 'category' })
 
     ItemsTags.init(sequelize, DataTypes)
-    Items.belongsToMany(Tags, { through: ItemsTags, as: 'tags' })
+    Items.belongsToMany(Tags, { through: ItemsTags, as: 'tags', hooks: true })
     Tags.belongsToMany(Items, { through: ItemsTags, as: 'items' })
 
 }

@@ -61,7 +61,7 @@ export default function Items() {
                                         <th>{item.id}</th>
                                         <td>{item.title}</td>
                                         <td>{item.subtitle}</td>
-                                        <td ><Link href={``} className={`btn btn-circle btn-warning btn-sm`}><EditIcon /></Link></td>
+                                        <td ><Link href={`/admin/change/${item.id}`} className={`btn btn-circle btn-warning btn-sm`}><EditIcon /></Link></td>
                                         <td><Link href={``} className={`btn btn-circle  btn-error btn-sm`}><DeleteForeverIcon /></Link></td>
                                     </tr>
                                 )

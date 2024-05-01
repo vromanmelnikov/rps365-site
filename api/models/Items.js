@@ -18,7 +18,7 @@ class Items extends Model {
             },
             popular: {
                 type: DataTypes.BOOLEAN
-            }, 
+            },
             isService: {
                 type: DataTypes.BOOLEAN
             }
