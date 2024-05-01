@@ -1,15 +1,15 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { ITEMS_URL } from "shared/api.config"
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { ITEMS_URL } from "shared/api.config";
 
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
-import styles from './items.module.scss'
+import styles from "./items.module.scss";
 import Link from "next/link";
 
 function Item({ item }) {
-
     return (
         <div className={`${styles.item} card bg-base-100 shadow-xl`}>
             <div className="card-body">
@@ -21,23 +21,17 @@ function Item({ item }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default function Items() {
+    const [items, setItems] = useState([]);
 
-    const [items, setItems] = useState([])
-
-    useEffect(
-        () => {
-            axios.get(ITEMS_URL).then(
-                (res) => {
-
-                    setItems(res.data.items)
-                }
-            )
-        }, []
-    )
+    useEffect(() => {
+        axios.get(ITEMS_URL).then((res) => {
+            setItems(res.data.items);
+        });
+    }, []);
 
     return (
         <div className="overflow-x-auto">
@@ -50,26 +44,46 @@ export default function Items() {
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        items.map(
-                            (item, index) => {
-                                return(
-                                    <tr key={index}>
-                                        <th>{item.id}</th>
-                                        <td>{item.title}</td>
-                                        <td>{item.subtitle}</td>
-                                        <td ><Link href={`/admin/change/${item.id}`} className={`btn btn-circle btn-warning btn-sm`}><EditIcon /></Link></td>
-                                        <td><Link href={``} className={`btn btn-circle  btn-error btn-sm`}><DeleteForeverIcon /></Link></td>
-                                    </tr>
-                                )
-                            }
-                        )
-                    }
+                    {items.map((item, index) => {
+                        return (
+                            <tr key={index}>
+                                <th>{item.id}</th>
+                                <td>{item.title}</td>
+                                <td>{item.subtitle}</td>
+                                <td style={{ padding: ".75rem .25rem" }}>
+                                    <Link
+                                        href={`/admin/change/${item.id}`}
+                                        className={`btn btn-circle btn-warning btn-sm`}
+                                    >
+                                        <EditIcon />
+                                    </Link>
+                                </td>
+                                <td style={{ padding: ".75rem .25rem" }}>
+                                    <Link
+                                        href={``}
+                                        className={`btn btn-circle  btn-error btn-sm`}
+                                    >
+                                        <DeleteForeverIcon />
+                                    </Link>
+                                </td>
+                                <td style={{ padding: ".75rem .25rem" }}>
+                                    <Link
+                                        href={`/product/${item.id}`}
+                                        target="_blank"
+                                        className={`btn btn-circle  btn-primary btn-sm`}
+                                    >
+                                        <OpenInNewIcon />
+                                    </Link>
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>
-    )
+    );
 }

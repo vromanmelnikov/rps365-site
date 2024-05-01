@@ -4,7 +4,7 @@ import { IMAGES_URL, STATIC_URL } from "shared/api.config";
 
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-export default function Images({ images, setImages }) {
+export default function Images({ images, prevImages, setImages }) {
     function changeQueue(position, index) {
         let newImages = [...images];
 
@@ -62,10 +62,15 @@ export default function Images({ images, setImages }) {
                     .then((response) => response.text())
                     .then((result) => {
                         setImages(newImages);
+                        prevImages.current = newImages
                     })
                     .catch((error) => console.error(error));
             })
             .catch((error) => console.error(error));
+    }
+
+    function showImage(url) {
+        window.open(url, "_blank")
     }
 
     return (
@@ -76,7 +81,7 @@ export default function Images({ images, setImages }) {
                     const src = `${STATIC_URL}/${img.url}`;
 
                     return (
-                        <div key={index} className={`${styles.image}`}>
+                        <div key={index} className={`${styles.image}`} id={`image_${index}`}>
                             <button
                                 className={`${styles.arrow} ${styles.prev} btn btn-circle`}
                                 onClick={() => changeQueue("PREV", index)}
@@ -88,6 +93,7 @@ export default function Images({ images, setImages }) {
                                 width={1280}
                                 height={720}
                                 alt="photo"
+                                onClick={() => showImage(src)}
                             />
                             <button
                                 className={`${styles.arrow} ${styles.next} btn btn-circle`}

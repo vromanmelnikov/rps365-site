@@ -31,9 +31,14 @@ async function getCategories() {
         redirect: "follow",
     };
 
-    const response = await fetch(CATEGORIES_URL, requestOptions);
-    const response_1 = await response.text();
-    return JSON.parse(response_1);
+    try {
+        const response = await fetch(CATEGORIES_URL, requestOptions);
+        const response_1 = await response.text();
+        return JSON.parse(response_1);
+    } catch (err) {
+        alert("Ошибка при получении категорий");
+        return [];
+    }
 }
 
 async function getTags() {
@@ -46,10 +51,14 @@ async function getTags() {
         redirect: "follow",
     };
 
-    const response = await fetch(TAGS_URL, requestOptions);
-    const response_1 = await response.text();
-
-    return JSON.parse(response_1);
+    try {
+        const response = await fetch(TAGS_URL, requestOptions);
+        const response_1 = await response.text();
+        return JSON.parse(response_1);
+    } catch (err) {
+        alert("Ошибка при получении тегов");
+        return [];
+    }
 }
 
 async function getProperties() {
@@ -153,14 +162,15 @@ function TypeInfo({
                         <AddIcon onClick={addImage} />
                     </button>
                     {type.images.map((item, imgIndex) => {
+                        let src = "";
 
-                        let src = ''
-
-                        if (item.id !== undefined) {
-                            src = `${STATIC_URL}/${item.url}`
-                        }
-                        else {
-                            src = item.url
+                        if (
+                            item.id !== undefined ||
+                            item.url === "EMPTY_IMAGE.png"
+                        ) {
+                            src = `${STATIC_URL}/${item.url}`;
+                        } else {
+                            src = item.url;
                         }
 
                         return (
@@ -257,7 +267,7 @@ function Property({
 }
 
 export default function ItemInfoForm({ itemInfo }) {
-    const router = useRouter()
+    const router = useRouter();
 
     const [item, setItem] = useState({
         title: "Муфта проходная герметичная РПС",
@@ -358,6 +368,8 @@ export default function ItemInfoForm({ itemInfo }) {
     }
 
     function addImage(typeIndex) {
+        const type = item.types[typeIndex];
+
         const fileInput = document.createElement("input");
         fileInput.type = "file";
         fileInput.multiple = false;
@@ -373,14 +385,59 @@ export default function ItemInfoForm({ itemInfo }) {
                 const image = document.createElement("img");
                 image.src = e.target.result;
 
-                let types = item.types;
+                if (type.id !== undefined) {
+                    const requestOptions = {
+                        method: "POST",
+                        body: formData,
+                        redirect: "follow",
+                    };
 
-                types[typeIndex].images.push({
-                    url: e.target.result,
-                    formData,
-                });
+                    fetch(`${STATIC_UPLOAD_URL}`, requestOptions)
+                        .then((response) => response.text())
+                        .then((result) => {
+                            const myHeaders = new Headers();
+                            myHeaders.append(
+                                "Content-Type",
+                                "application/json"
+                            );
 
-                setItem({ ...item, types });
+                            const raw = JSON.stringify({
+                                url: result,
+                                ItemTypeId: type.id,
+                            });
+
+                            const requestOptions = {
+                                method: "POST",
+                                headers: myHeaders,
+                                body: raw,
+                                redirect: "follow",
+                            };
+
+                            fetch(ITEM_IMAGES_URL, requestOptions)
+                                .then((response) => response.json())
+                                .then((result) => {
+                                    let types = item.types;
+                                    types[typeIndex].images = result;
+                                    setItem({
+                                        ...item,
+                                        types,
+                                    });
+                                })
+                                .catch((error) =>
+                                    alert("Ошибка загрузки изображения")
+                                );
+                        })
+                        .catch((error) => alert("Ошибка загрузки изображения"));
+                } else {
+                    let types = item.types;
+
+                    types[typeIndex].images.push({
+                        url: e.target.result,
+                        formData,
+                    });
+
+                    setItem({ ...item, types });
+                }
             };
 
             reader.readAsDataURL(fileInput.files[0]);
@@ -390,7 +447,6 @@ export default function ItemInfoForm({ itemInfo }) {
     }
 
     function deleteImage(typeIndex, imageIndex) {
-
         let types = item.types;
         let type = types[typeIndex];
 
@@ -398,38 +454,45 @@ export default function ItemInfoForm({ itemInfo }) {
 
         type.images = type.images.filter((img, index) => index !== imageIndex);
 
-        if (type.images.length === 0) {
-            type.images.push({
-                url: 'EMPTY_IMAGE.png'
-            })
-        }
+        // if (type.images.length === 0) {
+        //     type.images.push({
+        //         url: 'EMPTY_IMAGE.png'
+        //     })
+        // }
 
         types[typeIndex] = type;
 
         if (itemInfo === undefined || image?.id === undefined) {
-
             setItem({
                 ...item,
                 types,
             });
         } else {
-
             const requestOptions = {
                 method: "DELETE",
                 redirect: "follow",
             };
 
             fetch(`${ITEM_IMAGES_URL}/${image.id}`, requestOptions)
-                .then((response) => response.text())
+                .then((response) => response.json())
                 .then((result) => {
+                    let types = item.types;
+                    types[typeIndex].images = result;
+                    setItem({
+                        ...item,
+                        types,
+                    });
+
                     const requestOptions = {
                         method: "DELETE",
                         redirect: "follow",
                     };
 
                     fetch(`${STATIC_URL}?url=${image.url}`, requestOptions)
-                        .then((response) => response.text())
+                        .then((response) => response.ok ? response : Promise.reject(response))
                         .then((result) => {
+                            console.log(result);
+
                             setItem({
                                 ...item,
                                 types,
@@ -439,9 +502,11 @@ export default function ItemInfoForm({ itemInfo }) {
                             //     onSubmit()
                             // }
                         })
-                        .catch((error) => console.error(error));
+                        .catch((error) => {
+                            console.log(error)
+                        });
                 })
-                .catch((error) => console.error(error));
+                .catch((error) => alert("Ошибка удаления изображения"));
         }
     }
 
@@ -482,7 +547,7 @@ export default function ItemInfoForm({ itemInfo }) {
                     setTagInput("");
                 });
             })
-            .catch((error) => console.error(error));
+            .catch((error) => alert("Ошибка добавления тегов"));
     }
 
     function addNewType() {
@@ -523,7 +588,7 @@ export default function ItemInfoForm({ itemInfo }) {
                         types,
                     });
                 })
-                .catch((error) => console.error(error));
+                .catch((error) => alert("Ошибка удаления типа продукта"));
         }
     }
 
@@ -692,7 +757,22 @@ export default function ItemInfoForm({ itemInfo }) {
             fetch(`${ITEMS_URL}/${newItem.id}`, requestOptions)
                 .then((response) => response.text())
                 .then((result) => {
-                    router.reload()
+                    const requestOptions = {
+                        method: "GET",
+                        redirect: "follow",
+                    };
+
+                    fetch(`${ITEMS_URL}/${item.id}`, requestOptions)
+                        .then((response) => response.json())
+                        .then((result) => {
+                            let newItem = { ...result };
+                            newItem.categoryId = newItem.category.id.toString();
+                            delete newItem.category;
+                            newItem.isService = newItem.isService.toString();
+
+                            setItem(newItem);
+                        })
+                        .catch((error) => console.error(error));
                 })
                 .catch((error) => console.error(error));
         }

@@ -196,7 +196,7 @@ async function loadStaticImages() {
             // await loadCategories() 
             // await loadTags()
 
-            await loadStaticImages()
+            // await loadStaticImages()
 
             console.log('Connection has been established successfully.');
         } catch (error) {

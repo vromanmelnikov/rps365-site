@@ -37,11 +37,10 @@ imageRoute.put("/", async (req, res) => {
         );
     }
 
-    res.status(200).end()
+    res.status(200).end();
 });
 
-imageRoute.delete('/:id', async (req, res) => {
-
+imageRoute.delete("/:id", async (req, res) => {
     const id = req.params.id;
 
     const resultCode = await StaticImages.destroy({
@@ -55,7 +54,29 @@ imageRoute.delete('/:id', async (req, res) => {
     } else if (resultCode === 1) {
         res.status(200).end();
     }
+});
 
-})
+imageRoute.post("/", async (req, res) => {
+    const data = req.body;
+    const type = data.type;
+
+    try {
+        let queueNumber = await StaticImages.max("queueNumber", {
+            where: { type },
+        });
+        queueNumber += 1;
+
+        const image = await StaticImages.create({
+            type,
+            url: data.url,
+            queueNumber,
+        });
+
+        res.json(image).status(200).end();
+    } catch (err) {
+        console.log(err);
+        res.status(500).end();
+    }
+});
 
 module.exports = imageRoute;

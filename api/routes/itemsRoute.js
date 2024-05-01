@@ -455,8 +455,39 @@ itemsRoute.delete("/types/:id", async (req, res) => {
     }
 });
 
+itemsRoute.post("/types/images", async (req, res) => {
+    const data = req.body;
+
+    const ItemTypeId = data.ItemTypeId;
+
+    let typeImages = (
+        await TypeImages.findAll({
+            where: { ItemTypeId },
+        })
+    ).map((image) => image.toJSON());
+
+    if (typeImages.length === 1 && typeImages[0].url === "EMPTY_IMAGE.png") {
+        await TypeImages.destroy({ where: { id: typeImages[0].id } });
+    }
+
+    await TypeImages.create({
+        ItemTypeId,
+        url: data.url
+    })
+
+    typeImages = await TypeImages.findAll({
+        where: { ItemTypeId },
+    })
+
+    res.json(typeImages).status(200).end()
+});
+
 itemsRoute.delete("/types/images/:id", async (req, res) => {
     const id = req.params.id;
+
+    const image = await TypeImages.findOne({
+        where: { id },
+    });
 
     const resultCode = await TypeImages.destroy({
         where: {
@@ -464,10 +495,25 @@ itemsRoute.delete("/types/images/:id", async (req, res) => {
         },
     });
 
+    const count = await TypeImages.count({
+        where: { ItemTypeId: image.ItemTypeId },
+    });
+
+    if (count === 0) {
+        await TypeImages.create({
+            url: "EMPTY_IMAGE.png",
+            ItemTypeId: image.ItemTypeId,
+        });
+    }
+
+    const images = await TypeImages.findAll({
+        where: { ItemTypeId: image.ItemTypeId },
+    });
+
     if (resultCode === 0) {
         res.status(404).end();
     } else if (resultCode === 1) {
-        res.status(200).end();
+        res.json(images).status(200).end();
     }
 });
 
