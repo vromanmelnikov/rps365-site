@@ -30,6 +30,10 @@ class StaticImages extends Model {
                 validate: {
                     isIn: [['sertificat', 'feedback', 'real_object']]
                 }
+            },
+            queueNumber: {
+                type: DataTypes.INTEGER,
+                allowNull: false
             }
         },
             {
