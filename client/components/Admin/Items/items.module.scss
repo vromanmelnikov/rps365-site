@@ -9,3 +9,13 @@
 .item {
     width: calc(50% - 0.5rem);
 }
+
+.popularCell {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    input[type=checkbox] {
+        --chkfg: white;
+    }
+}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ITEMS_URL } from "shared/api.config";
+import { ITEM_POPULARITY_URL, ITEMS_URL } from "shared/api.config";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -33,6 +33,47 @@ export default function Items() {
         });
     }, []);
 
+    function changePopularity(id, index) {
+        const requestOptions = {
+            method: "PUT",
+            redirect: "follow",
+        };
+
+        fetch(`${ITEM_POPULARITY_URL}/${id}`, requestOptions)
+            .then((response) =>
+                response.ok ? response : Promise.reject(response)
+            )
+            .then((result) => {
+                let newItems = [...items];
+                // console.log(result)
+                newItems[index].popular = !newItems[index].popular;
+                setItems(newItems);
+            })
+            .catch((error) => {
+                console.log(error);
+                if (error.status === 503) {
+                    alert("Нельзя добавлять больше 3 популярных товаров!");
+                }
+            });
+    }
+
+    function deleteItem(id) {
+        const requestOptions = {
+            method: "DELETE",
+            redirect: "follow",
+        };
+
+        fetch(`${ITEMS_URL}/${id}`, requestOptions)
+            .then((response) =>
+                response.ok ? response : Promise.reject(response)
+            )
+            .then((result) => {
+                let newItems = items.filter(item => item.id !== id)
+                setItems(newItems)
+            })
+            .catch((error) => console.error(error));
+    }
+
     return (
         <div className="overflow-x-auto">
             <table className="table">
@@ -45,6 +86,7 @@ export default function Items() {
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th>Популярный</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,12 +105,12 @@ export default function Items() {
                                     </Link>
                                 </td>
                                 <td style={{ padding: ".75rem .25rem" }}>
-                                    <Link
-                                        href={``}
+                                    <button
                                         className={`btn btn-circle  btn-error btn-sm`}
+                                        onClick={() => deleteItem(item.id)}
                                     >
                                         <DeleteForeverIcon />
-                                    </Link>
+                                    </button>
                                 </td>
                                 <td style={{ padding: ".75rem .25rem" }}>
                                     <Link
@@ -78,6 +120,17 @@ export default function Items() {
                                     >
                                         <OpenInNewIcon />
                                     </Link>
+                                </td>
+                                <td className={`${styles.popularCell}`}>
+                                    <input
+                                        type="checkbox"
+                                        checked={item.popular === true}
+                                        readOnly
+                                        className="checkbox checkbox-primary"
+                                        onClick={() =>
+                                            changePopularity(item.id, index)
+                                        }
+                                    />
                                 </td>
                             </tr>
                         );

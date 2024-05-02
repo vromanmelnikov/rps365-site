@@ -420,6 +420,22 @@ itemsRoute.put("/:id", async (req, res) => {
     res.json(result).status(200).end();
 });
 
+itemsRoute.put("/popularity/:id", async (req, res) => {
+    const id = req.params.id;
+
+    const item = await Items.findByPk(id);
+    const newPopular = !item.toJSON().popular;
+    const popularCount = await Items.count({ where: { popular: true } });
+
+    if (popularCount === 3 && newPopular === true) {
+        res.status(503).end();
+    } else {
+        await Items.update({ popular: newPopular }, { where: { id } });
+        res.status(200).end();
+    }
+
+});
+
 itemsRoute.put("/types/:id", async (req, res) => {
     const id = req.params.id;
 
@@ -472,14 +488,14 @@ itemsRoute.post("/types/images", async (req, res) => {
 
     await TypeImages.create({
         ItemTypeId,
-        url: data.url
-    })
+        url: data.url,
+    });
 
     typeImages = await TypeImages.findAll({
         where: { ItemTypeId },
-    })
+    });
 
-    res.json(typeImages).status(200).end()
+    res.json(typeImages).status(200).end();
 });
 
 itemsRoute.delete("/types/images/:id", async (req, res) => {

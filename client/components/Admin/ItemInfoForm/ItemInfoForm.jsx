@@ -750,8 +750,6 @@ export default function ItemInfoForm({ itemInfo }) {
                 body: raw,
                 redirect: "follow",
             };
-
-            console.log(newItem);
             // return
 
             fetch(`${ITEMS_URL}/${newItem.id}`, requestOptions)
@@ -771,6 +769,8 @@ export default function ItemInfoForm({ itemInfo }) {
                             newItem.isService = newItem.isService.toString();
 
                             setItem(newItem);
+
+                            alert('Обновлено!')
                         })
                         .catch((error) => console.error(error));
                 })
