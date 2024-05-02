@@ -646,9 +646,7 @@ export default function ItemInfoForm({ itemInfo }) {
             for (let i = 0; i < newItem.types.length; i++) {
                 let images = newItem.types[i].images;
                 if (images.length === 0) {
-                    newItem.types[i].images.push({
-                        url: "EMPTY_IMAGE.png",
-                    });
+                
                 } else {
                     for (let j = 0; j < images.length; j++) {
                         const formdata = images[j].formData;

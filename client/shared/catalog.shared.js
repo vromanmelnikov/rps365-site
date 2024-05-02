@@ -7,6 +7,6 @@ export const sortFilters = [
     {
         name: 'По убыванию цены',
         value: 'COST_DOWN'
-    },
+    }
 ]
 

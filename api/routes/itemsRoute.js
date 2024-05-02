@@ -260,13 +260,18 @@ itemsRoute.post("/", async (req, res) => {
                 itemType: type.itemType,
             });
 
-            if (type.images) {
+            if (type.images.length !== 0) {
                 await TypeImages.bulkCreate(
                     type.images.map((image) => ({
                         ItemTypeId: resType.id,
                         url: image.url,
                     }))
                 );
+            } else {
+                await TypeImages.create({
+                    ItemTypeId: resType.id,
+                    url: "EMPTY_IMAGE.png",
+                });
             }
         }
     }
@@ -433,7 +438,6 @@ itemsRoute.put("/popularity/:id", async (req, res) => {
         await Items.update({ popular: newPopular }, { where: { id } });
         res.status(200).end();
     }
-
 });
 
 itemsRoute.put("/types/:id", async (req, res) => {

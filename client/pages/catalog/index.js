@@ -7,193 +7,204 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { CATEGORIES_URL, ITEMS_URL, TAGS_URL } from "shared/api.config";
 
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import CloseIcon from '@mui/icons-material/Close';
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import CloseIcon from "@mui/icons-material/Close";
 
 const NO_FILTERS = {
-  sorting: 'COST_UP',
-  cost: {
-    min: '',
-    max: ''
-  },
-  tags: [],
-  types: {
-    products: true,
-    services: true
-  },
-  saved: true
-}
+    sorting: "COST_UP",
+    cost: {
+        min: "",
+        max: "",
+    },
+    tags: [],
+    types: {
+        products: true,
+        services: true,
+    },
+    saved: true,
+};
 
 function applySortFilter(sortType, items) {
+    let newItems = [];
 
-  if (sortType === 'COST_UP') {
+    if (sortType === "COST_UP") {
+        newItems = items.sort((a, b) => {
+            if (a.typesCosts.min > b.typesCosts.min) return 1;
+            if (a.typesCosts.min === b.typesCosts.min) return 0;
+            if (a.typesCosts.min < b.typesCosts.min) return -1;
+        });
+    } else if (sortType === "COST_DOWN") {
+        newItems = items.sort((a, b) => {
+            if (a.typesCosts.min > b.typesCosts.min) return -1;
+            if (a.typesCosts.min === b.typesCosts.min) return 0;
+            if (a.typesCosts.min < b.typesCosts.min) return 1;
+        });
+    }
 
-    return items.sort((a, b) => {
-      if (a.min > b.min) return 1
-      if (a.min === b.min) return 0
-      if (a.min < b.min) return -1
-    })
-
-  }
-  else if (sortType === 'COST_DOWN') {
-
-    return items.sort((a, b) => {
-      if (a.min > b.min) return -1
-      if (a.min === b.min) return 0
-      if (a.min < b.min) return 1
-    })
-
-  }
-
+    return newItems;
 }
 
 function applyCostFilter({ min, max }, item) {
-  let flag = {
-    min: true,
-    max: true
-  }
-  if (min !== '') {
-    flag.min = item.typesCosts.min >= min
-  }
-  if (max !== '') {
-    flag.max = item.typesCosts.max >= max
-  }
 
-  return flag.min && flag.max
+    if (min === "" && max === "") {
+        return true;
+    }
+
+    if (
+        item.typesCosts.min >= parseInt(min) || //если мин цена меньше общей мин.
+        item.typesCosts.max <= parseInt(max) && //если макс цена меньше общей макс.
+        item.typesCosts.max >= parseInt(min) && //если макс цена не меньше общей мин.
+        item.typesCosts.min <= parseInt(max) //если мин цена не больше общей макс.
+    ) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function applyTagsFilter(tagsID, item) {
+    if (tagsID.length === 0) {
+        return true;
+    }
 
-  if (tagsID.length === 0) {
-    return true
-  }
+    const itemTags = item.tags.map((tag) => tag.id);
 
-  const hasTags = item.tagsID.find(tagID => tagsID.includes(tagID) === true)
-  return hasTags >= 0
-
+    const hasTags = itemTags.find((tagID) => tagsID.includes(tagID) === true);
+    return hasTags >= 0;
 }
 
 function applyFilters(filters, items) {
+    let filteredItems = [];
 
-  let filteredItems = []
-
-  for (let item of items) {
-    const tagsID = filters.tags.map(tag => tag.id)
-    if (
-      applyCostFilter(filters.cost, item) === true
-      && applyTagsFilter(tagsID, item) === true
-    ) {
-      filteredItems.push(item)
+    for (let item of items) {
+        const tagsID = filters.tags.map((tag) => tag.id);
+        if (
+            applyCostFilter(filters.cost, item) === true &&
+            applyTagsFilter(tagsID, item) === true
+        ) {
+            filteredItems.push(item);
+        }
     }
-  }
 
-  filteredItems = applySortFilter(filters.sorting, filteredItems)
+    filteredItems = applySortFilter(filters.sorting, filteredItems);
 
-  return filteredItems
-
+    return filteredItems;
 }
 
 export default function Catalog({ items, tags, costRange, categories }) {
+    const [filteredItems, setFilteredItems] = useState([]);
 
-  const [filteredItems, setFilteredItems] = useState([]);
+    const [filters, setFilters] = useState(NO_FILTERS);
 
-  const [filters, setFilters] = useState(NO_FILTERS)
+    useEffect(() => {
+        if (filters.saved === true) {
+            setFilteredItems(applyFilters(filters, items));
+        }
+    }, [filters]);
 
-  useEffect(() => {
-    if (filters.saved === true) {
-      setFilteredItems(applyFilters(filters, items));
+    function changeFilters(filterName, value) {
+        setFilters({
+            ...filters,
+            saved: false,
+            [filterName]: value,
+        });
     }
-  }, [filters])
 
-  function changeFilters(filterName, value) {
-    setFilters({
-      ...filters,
-      saved: false,
-      [filterName]: value
-    })
-  }
-
-  function clearFilters() {
-    setFilters(NO_FILTERS)
-  }
-
-  function openFilters() {
-    const filters = document.getElementById('filters')
-    console.log(filters)
-    const opened = filters.getAttribute('opened')
-    if (opened === '') {
-      filters.removeAttribute('opened')
+    function clearFilters() {
+        setFilters(NO_FILTERS);
     }
-    else {
-      filters.setAttribute('opened', '')
+
+    function openFilters() {
+        const filters = document.getElementById("filters");
+        console.log(filters);
+        const opened = filters.getAttribute("opened");
+        if (opened === "") {
+            filters.removeAttribute("opened");
+        } else {
+            filters.setAttribute("opened", "");
+        }
     }
-  }
 
-  const title = "Каталог";
+    const title = "Каталог";
 
-  return (
-    <>
-      <Head>
-        <title>{title}</title>
-        <meta
-          name="description"
-          content='Компания "РЕПЛАСТ-365" предлагает уникальное решение для проблем, 
+    return (
+        <>
+            <Head>
+                <title>{title}</title>
+                <meta
+                    name="description"
+                    content='Компания "РЕПЛАСТ-365" предлагает уникальное решение для проблем, 
           связанных с герметизацией. Мы специализируемся на разработке и обеспечении
            надежной герметизации технических сетей, кабельных коммуникаций и трубных 
-           разводок от воздействия внешних факторов'>
-        </meta>
-        <meta charSet="utf-8"></meta>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
-      <Layout>
-        <main className={`${styles.main}`} data-theme="mytheme">
-          <div className={`${styles.breadcrumbs} text-sm breadcrumbs`}>
-            <ul>
-              <li>
-                <a>Главная</a>
-              </li>
-              <li>
-                <b>Каталог</b>
-              </li>
-            </ul>
-            <label  className={`${styles.filterToggler} btn btn-primary btn-circle btn-sm swap swap-rotate`} >
-              <input type="checkbox" onChange={openFilters}/>
-              <FilterAltIcon className="swap-off fill-current"/>
-              <CloseIcon className="swap-on fill-current"/>              
-            </label>
-          </div>
-          <div className={`${styles.catalog}`}>
-            <CatalogFilters tags={tags} filters={filters} costRange={costRange} changeFilters={changeFilters} clearFilters={clearFilters} />
-            <CatalogItems items={filteredItems} categories={categories} />
-          </div>
-        </main>
-      </Layout>
-    </>
-  );
+           разводок от воздействия внешних факторов'
+                ></meta>
+                <meta charSet="utf-8"></meta>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
+            </Head>
+            <Layout>
+                <main className={`${styles.main}`} data-theme="mytheme">
+                    <div
+                        className={`${styles.breadcrumbs} text-sm breadcrumbs`}
+                    >
+                        <ul>
+                            <li>
+                                <a>Главная</a>
+                            </li>
+                            <li>
+                                <b>Каталог</b>
+                            </li>
+                        </ul>
+                        <label
+                            className={`${styles.filterToggler} btn btn-primary btn-circle btn-sm swap swap-rotate`}
+                        >
+                            <input type="checkbox" onChange={openFilters} />
+                            <FilterAltIcon className="swap-off fill-current" />
+                            <CloseIcon className="swap-on fill-current" />
+                        </label>
+                    </div>
+                    <div className={`${styles.catalog}`}>
+                        <CatalogFilters
+                            tags={tags}
+                            filters={filters}
+                            costRange={costRange}
+                            changeFilters={changeFilters}
+                            clearFilters={clearFilters}
+                        />
+                        <CatalogItems
+                            items={filteredItems}
+                            categories={categories}
+                        />
+                    </div>
+                </main>
+            </Layout>
+        </>
+    );
 }
 
 export async function getServerSideProps() {
+    const data = (await axios.get(ITEMS_URL)).data;
 
-  const data = (await axios.get(ITEMS_URL)).data
+    const items = data.items;
+    const costRange = data.costRange;
+    const tags = (await axios.get(TAGS_URL)).data;
+    let categories = (await axios.get(CATEGORIES_URL)).data.map((category) => {
+        return {
+            name: category.rusName,
+            type: category.name,
+            href: `/catalog?category=${category.name}`,
+        };
+    });
 
-  const items = data.items
-  const costRange = data.costRange
-  const tags = (await axios.get(TAGS_URL)).data
-  let categories = (await axios.get(CATEGORIES_URL)).data.map(category => {
+    categories.unshift({
+        name: "Все",
+        href: "/catalog",
+        type: "",
+    });
+
     return {
-      name: category.rusName,
-      type: category.name,
-      href: `/catalog?category=${category.name}`
-    }
-  })
-
-  categories.unshift({
-    name: 'Все',
-    href: '/catalog',
-    type: ''
-  })
-
-  return ({
-    props: { items, tags, costRange, categories }
-  })
+        props: { items, tags, costRange, categories },
+    };
 }

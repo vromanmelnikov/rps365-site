@@ -139,7 +139,7 @@ export default function Carousel({ images, height, expanded }) {
                 </span>
                 <div id={id} style={{ height: `${height}` }} className={`${styles.images} carousel_block`}>
                     {
-                        images.map((item, index) => {
+                        images.sort((a, b) => a.queueNumber - b.queueNumber).map((item, index) => {
 
                             return (
                                 <Image

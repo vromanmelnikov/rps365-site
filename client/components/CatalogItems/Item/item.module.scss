@@ -1,7 +1,8 @@
 @import '../../../styles/variables';
 
 .item {
-    width: calc(33% - 1.5rem);
+    width: calc(100% / 3 - 1.5rem);
+
     // aspect-ratio: 1/0.75;
     background-color: $second-color;
     border-radius: $base-radius;
