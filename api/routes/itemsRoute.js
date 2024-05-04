@@ -299,6 +299,15 @@ itemsRoute.post("/", async (req, res) => {
 itemsRoute.delete("/:id", async (req, res) => {
     const id = req.params.id;
 
+    const types = await ItemTypes.findAll({ where: { ItemId: id } });
+
+    for (let type of types) {
+        const imageIDs = (
+            await TypeImages.findAll({ where: { ItemTypeId: type.id } })
+        ).map((image) => image.toJSON().id);
+        await TypeImages.destroy({ where: { id: imageIDs } });
+    }
+
     const resultCode = await Items.destroy({
         where: {
             id,
@@ -383,13 +392,6 @@ itemsRoute.put("/:id", async (req, res) => {
 
     for (let type of types) {
         await ItemTypes.update(type, { where: { id: type.id } });
-        await TypeImages.destroy({ where: { ItemTypeId: type.id } });
-        await TypeImages.bulkCreate(
-            type.images.map((image) => ({
-                ItemTypeId: type.id,
-                url: image.url,
-            }))
-        );
     }
 
     //create new types
@@ -461,6 +463,11 @@ itemsRoute.put("/types/:id", async (req, res) => {
 
 itemsRoute.delete("/types/:id", async (req, res) => {
     const id = req.params.id;
+
+    const imageIDs = (
+        await TypeImages.findAll({ where: { ItemTypeId: id } })
+    ).map((image) => image.toJSON().id);
+    await TypeImages.destroy({ where: { id: imageIDs } });
 
     const resultCode = await ItemTypes.destroy({
         where: {

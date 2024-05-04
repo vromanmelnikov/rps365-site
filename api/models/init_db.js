@@ -43,7 +43,7 @@ function initModels(sequelize) {
     ItemTypes.belongsTo(Items)
 
     ItemTypes.hasMany(TypeImages, { onDelete: 'cascade', as: 'images' })
-    TypeImages.belongsTo(ItemTypes)
+    TypeImages.belongsTo(ItemTypes, {onDelete: 'cascade'})
 
     Categories.hasMany(Items, { foreignKey: 'categoryId' })
     Items.belongsTo(Categories, { as: 'category' })

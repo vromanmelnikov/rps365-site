@@ -39,7 +39,8 @@ class ItemTypes extends Model {
         },
             {
                 sequelize,
-                timestamps: false
+                timestamps: false,
+                hooks: {}
             }
         )
     }
