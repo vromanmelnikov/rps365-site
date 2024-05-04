@@ -11,7 +11,6 @@ export default function CatalogItems({ items, categories }) {
     const [sliceCount, setSliceCount] = useState(6);
 
     useEffect(() => {
-        console.log(sliceCount);
     }, [sliceCount]);
 
     useEffect(() => {
@@ -25,13 +24,29 @@ export default function CatalogItems({ items, categories }) {
     }, [router]);
 
     function showMore() {
+
+        let length = items
+            .filter(
+                (item) =>
+                    item.category.name === category.type ||
+                    category.type === ""
+            ).length
+
         let newSliceCount = sliceCount + 6;
-        if (newSliceCount <= items.length + 6) {
+        if (newSliceCount <= length + 6) {
             setSliceCount(newSliceCount);
         }
     }
 
     function showLess() {
+
+        let length = items
+            .filter(
+                (item) =>
+                    item.category.name === category.type ||
+                    category.type === ""
+            ).length
+
         let newSliceCount = sliceCount - 6;
         setSliceCount(newSliceCount);
     }
@@ -44,11 +59,9 @@ export default function CatalogItems({ items, categories }) {
                         <Link
                             key={index}
                             href={item.href}
-                            className={`${styles.item} badge ${
-                                item.href === category.href && "badge-primary"
-                            }  ${
-                                item.href !== category.href && "badge-outline"
-                            } p-3`}
+                            className={`${styles.item} badge ${item.href === category.href && "badge-primary"
+                                }  ${item.href !== category.href && "badge-outline"
+                                } p-3`}
                         >
                             {item.name}
                         </Link>
@@ -57,12 +70,12 @@ export default function CatalogItems({ items, categories }) {
             </div>
             <div className={`${styles.items}`}>
                 {items
-                    .slice(0, sliceCount)
                     .filter(
                         (item) =>
                             item.category.name === category.type ||
                             category.type === ""
                     )
+                    .slice(0, sliceCount)
                     .map((item, index) => {
                         return <Item key={index} item={item} />;
                     })}
@@ -79,7 +92,7 @@ export default function CatalogItems({ items, categories }) {
                     </button>
                 )}
                 <button
-                    disabled={sliceCount + 6 >= items.length + 6}
+                    disabled={sliceCount + 6 >= items.filter((item) =>item.category.name === category.type || category.type === "").length + 6}
                     className={`btn btn-primary join-item`}
                     onClick={showMore}
                 >
