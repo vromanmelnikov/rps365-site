@@ -293,7 +293,7 @@ itemsRoute.post("/", async (req, res) => {
 
     await Properties.bulkCreate(properties);
 
-    res.status(200).end();
+    res.json(item.id).status(200).end();
 });
 
 itemsRoute.delete("/:id", async (req, res) => {

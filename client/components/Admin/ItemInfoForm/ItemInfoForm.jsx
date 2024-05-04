@@ -19,7 +19,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 async function getCategories() {
     const myHeaders = new Headers();
@@ -604,6 +604,10 @@ export default function ItemInfoForm({ itemInfo }) {
             errors.push("Пустой тип товара");
         }
 
+        if (item.types.length === 0) {
+            errors.push(`Должен быть хотя бы один тип`);
+        }
+
         for (let i = 0; i < item.types.length; i++) {
             if (item.types[i].title === "") {
                 errors.push(`Пустое название у типа #${i + 1}`);
@@ -688,6 +692,7 @@ export default function ItemInfoForm({ itemInfo }) {
                 .then((result) => {
                     console.log(result);
                     alert("Добавлено!");
+                    router.push(`/admin/change/${result}`)
                 })
                 .catch((error) => console.error(error));
         } else {
