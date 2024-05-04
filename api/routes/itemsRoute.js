@@ -544,6 +544,4 @@ itemsRoute.delete("/types/images/:id", async (req, res) => {
     }
 });
 
-// itemsRoute.pu
-
 module.exports = itemsRoute;
