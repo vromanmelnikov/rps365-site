@@ -4,6 +4,8 @@ const fs = require('fs');
 const Categories = require('./Categories');
 const Tags = require('./Tags');
 const StaticImages = require('./StaticImages');
+const Users = require('./Users');
+const PasswordCodes = require('./PasswordCodes');
 
 const logStream = fs.createWriteStream('./sql.log', { 'flags': 'a' });
 
@@ -187,6 +189,24 @@ async function loadStaticImages() {
     ])
 }
 
+async function loadAdmin() {
+    await Users.sync({force: true})
+
+    //return
+
+    let admin = {
+        email: 'vromanmelnikov@yandex.ru',
+        hashedPassword: 'admin_password'
+    }
+
+    await Users.create(admin)
+}
+
+async function clearCodes() {
+    await PasswordCodes.sync({force: true})    
+}
+
+
 (
     async function () {
         try {
@@ -197,6 +217,9 @@ async function loadStaticImages() {
             // await loadTags()
 
             // await loadStaticImages()
+            
+            await loadAdmin()
+            await clearCodes()
 
             console.log('Connection has been established successfully.');
         } catch (error) {

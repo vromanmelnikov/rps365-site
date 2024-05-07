@@ -4,8 +4,21 @@ import Head from "next/head";
 
 import AddIcon from '@mui/icons-material/Add';
 import Link from "next/link";
+import { useEffect } from "react";
+import authService from "shared/auth.service";
+import { useRouter } from "next/router";
 
 export default function AdminItems() {
+
+    const router = useRouter()
+
+    useEffect(
+        () => {
+            if (authService.isAuth() === false) {
+                router.push('/admin')
+            }
+        }, []
+    )
 
     return (
         <>

@@ -7,11 +7,23 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { IMAGES_URL, STATIC_UPLOAD_URL } from "shared/api.config";
 import Images from "components/Admin/Images";
+import { useRouter } from "next/router";
+import authService from "shared/auth.service";
 
 export default function AdminImages() {
     const [images, setImages] = useState([]);
     const prevImages = useRef([])
     const [type, setType] = useState("real_object");
+
+    const router = useRouter()
+
+    useEffect(
+        () => {
+            if (authService.isAuth() === false) {
+                router.push('/admin')
+            }
+        }, []
+    )
 
     useEffect(() => {
         if (type !== "") {

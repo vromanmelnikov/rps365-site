@@ -55,7 +55,16 @@ function createRequestMail(name, number, request, email) {
     `
 }
 
+function createCodeMail(email, code) {
+    return `
+    <h1 style="color: red">Заявка на восстановление пароля</h1>
+    <p>Почта: ${email}</p>
+    <p style="font-weight: 600">Код восстановления: ${code}</p>
+`
+}
+
 module.exports = {
     createCartMail,
-    createRequestMail
+    createRequestMail,
+    createCodeMail
 }

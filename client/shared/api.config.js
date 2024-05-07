@@ -8,6 +8,10 @@ export const STATIC_UPLOAD_URL = `${STATIC_URL}/upload`
 // export const API_URL = `http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}`
 // export const STATIC_URL = `http://${process.env.NEXT_PUBLIC_STATIC_HOST}:${process.env.NEXT_PUBLIC_STATIC_PORT}`
 
+export const AUTH_URL = `${API_URL}/auth`
+export const AUTH_CODE_URL = `${AUTH_URL}/code`
+// export const PASSWORD_URL = `${AUTH_URL}/code`
+
 export const ITEMS_URL = `${API_URL}/items`
 export const ITEM_POPULARITY_URL = `${ITEMS_URL}/popularity`
 export const ITEM_TYPES_URL = `${ITEMS_URL}/types`
@@ -26,3 +30,4 @@ export const POPULAR_GOODS_URL = `${ITEMS_URL}?popular=true`
 
 export const MAIL_URL = `${API_URL}/mail`
 export const MAIL_CART_URL = `${MAIL_URL}/cart`
+export const MAIL_AUTH_CODE_URL = `${MAIL_URL}/code`

@@ -11,8 +11,13 @@ const PropertyValues = require("./PropertyValues")
 const Properties = require("./Properties")
 const ItemsProperties = require("./ItemsProperties")
 const Services = require("./Service")
+const Users = require("./Users")
+const PasswordCodes = require("./PasswordCodes")
 
 function initModels(sequelize) {
+
+    Users.init(sequelize, DataTypes)
+    PasswordCodes.init(sequelize, DataTypes)
 
     //основные модели
     Items.init(sequelize, DataTypes)

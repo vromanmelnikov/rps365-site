@@ -1,13 +1,20 @@
 @import '../../styles/variables';
 
-.background {
+.background, .backImage {
     width: 100vw;
     height: 100%;
     position: absolute;
     background-color: $base-color;
+    // background-image: url('../../public/images/slide-1.jpg');
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
+}
+
+.backImage {
+    background: linear-gradient( rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55) ), url('../../public/images/slide-1.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 .content {

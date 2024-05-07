@@ -3,6 +3,9 @@ import mainPageStyles from '../main.module.scss'
 import { Oswald } from 'next/font/google'
 import React from 'react'
 
+import backImage from '../../../public/images/slide-1.jpg'
+import Image from 'next/image'
+
 const oswald = Oswald({
     subsets: ['cyrillic'],
     weight: '500',
@@ -41,7 +44,7 @@ export default function TitleBlock({ products }) {
 
     return (
         <section className={`${styles.main}`}>
-            <div style={{ backgroundColor: 'black' }} className={`${mainPageStyles.background}`}></div>
+            <div style={{ backgroundColor: 'black' }} className={`${mainPageStyles.background} ${mainPageStyles.backImage}`}></div>
             <div className={`${styles.info}`}>
                 <div className={`${styles.title}`}>
                     <div className={`${styles.words}`}>

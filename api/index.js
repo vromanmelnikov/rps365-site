@@ -9,6 +9,7 @@ const itemsRoute = require('./routes/itemsRoute')
 const imageRoute = require('./routes/imagesRoute')
 const staticRoute = require('./routes/staticRoute')
 const mailRoute = require('./routes/mailRoute')
+const authRoute = require('./routes/authRoute')
 
 const app = express()
 const port = 8000
@@ -20,6 +21,7 @@ app.use('/api/items', itemsRoute)
 app.use('/api/images', imageRoute)
 app.use('/api/static', staticRoute)
 app.use('/api/mail', mailRoute)
+app.use('/api/auth', authRoute)
 
 app.listen(port, async () => {
     console.log(`Example app listening on port ${port}`)

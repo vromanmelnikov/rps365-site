@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { ITEMS_URL } from "shared/api.config";
+import authService from "shared/auth.service";
 
 export default function Create() {
 
@@ -32,6 +33,14 @@ export default function Create() {
             }
 
         }, [router]
+    )
+
+    useEffect(
+        () => {
+            if (authService.isAuth() === false) {
+                router.push('/admin')
+            }
+        }, []
     )
 
     return (
