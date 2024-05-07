@@ -343,10 +343,6 @@ export default function ItemInfoForm({ itemInfo }) {
         }
     }, [categories, tags, properties, itemInfo]);
 
-    useEffect(() => {
-        // console.log(item);
-    }, [item]);
-
     function onItemChange(event) {
         const name = event.target.name;
         const value = event.target.value;
@@ -491,7 +487,6 @@ export default function ItemInfoForm({ itemInfo }) {
                     fetch(`${STATIC_URL}?url=${image.url}`, requestOptions)
                         .then((response) => response.ok ? response : Promise.reject(response))
                         .then((result) => {
-                            console.log(result);
 
                             setItem({
                                 ...item,
@@ -503,7 +498,6 @@ export default function ItemInfoForm({ itemInfo }) {
                             // }
                         })
                         .catch((error) => {
-                            console.log(error)
                         });
                 })
                 .catch((error) => alert("Ошибка удаления изображения"));
@@ -537,7 +531,6 @@ export default function ItemInfoForm({ itemInfo }) {
             .then((response) => response.text())
             .then((result) => {
                 getTags().then((res) => {
-                    console.log(res);
                     let newTag = res.filter((tag) => tag.name === tagInput)[0];
                     setItem({
                         ...item,
@@ -593,7 +586,6 @@ export default function ItemInfoForm({ itemInfo }) {
     }
 
     async function onSubmit() {
-        console.log("submit");
 
         let errors = [];
 
@@ -690,7 +682,6 @@ export default function ItemInfoForm({ itemInfo }) {
             fetch(ITEMS_URL, requestOptions)
                 .then((response) => response.text())
                 .then((result) => {
-                    console.log(result);
                     alert("Добавлено!");
                     router.push(`/admin/change/${result}`)
                 })

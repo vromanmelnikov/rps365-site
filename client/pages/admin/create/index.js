@@ -2,6 +2,7 @@ import ItemInfoForm from "components/Admin/ItemInfoForm/ItemInfoForm";
 import AdminLayout from "components/AdminLayout/AdminLayout";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import authService from "shared/auth.service";
 
 export default function Create() {

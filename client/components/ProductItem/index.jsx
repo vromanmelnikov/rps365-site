@@ -33,8 +33,6 @@ function ProductType({ productType, checked, onTypeIDChange }) {
 
 export default function ProductItem({ product }) {
 
-  console.log(product.tags)
-
   const [error, setError] = useState({
     noTypeChoosen: false,
   });

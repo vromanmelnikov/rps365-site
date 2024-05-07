@@ -37,7 +37,6 @@ export default function AdminImages() {
                 .then((result) => {
                     setImages(result);
                     prevImages.current = result
-                    console.log(result);
                 })
                 .catch((error) => console.error(error));
         }
@@ -47,7 +46,6 @@ export default function AdminImages() {
         if (images.length > prevImages.current.length) {
             const lastImage = document.getElementById(`image_${images.length - 1}`)
             lastImage.scrollIntoView({behavior: 'smooth', block: 'end'})
-            // console.log(lastImage)
             prevImages.current = images
         }
     }, [images]);

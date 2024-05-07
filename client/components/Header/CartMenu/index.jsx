@@ -51,7 +51,6 @@ export default function CartMenu() {
           <ul className={`${styles.items} p-2 shadow bg-base-100`}>
             {products.length === 0 && <li>Корзина пуста</li>}
             {products.map((item, index) => {
-              console.log(item.type);
 
               return (
                 <li key={index}>

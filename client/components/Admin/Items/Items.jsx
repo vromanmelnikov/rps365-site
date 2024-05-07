@@ -45,12 +45,10 @@ export default function Items() {
             )
             .then((result) => {
                 let newItems = [...items];
-                // console.log(result)
                 newItems[index].popular = !newItems[index].popular;
                 setItems(newItems);
             })
             .catch((error) => {
-                console.log(error);
                 if (error.status === 503) {
                     alert("Нельзя добавлять больше 3 популярных товаров!");
                 }

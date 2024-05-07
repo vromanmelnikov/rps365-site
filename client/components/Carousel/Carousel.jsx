@@ -48,12 +48,6 @@ export default function Carousel({ images, height, expanded }) {
         }, [currImage]
     )
 
-    useEffect(
-        () => {
-            console.log(currImageIndex)
-        }, [currImageIndex]
-    )
-
     function goToLeft() {
 
         // const div = document.getElementById(id)

@@ -29,7 +29,7 @@ class AuthService {
             } else {
                 const id = await result.json();
                 
-                // window.localStorage.setItem('id', id)
+                window.localStorage.setItem('id', id)
 
                 resolve("OK");
             }

@@ -116,7 +116,6 @@ export default function Catalog({ items, tags, costRange, categories }) {
 
     function openFilters() {
         const filters = document.getElementById("filters");
-        console.log(filters);
         const opened = filters.getAttribute("opened");
         if (opened === "") {
             filters.removeAttribute("opened");

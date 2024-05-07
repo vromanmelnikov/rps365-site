@@ -26,7 +26,6 @@ export default function Create() {
                   fetch(`${ITEMS_URL}/${id}`, requestOptions)
                     .then((response) => response.json())
                     .then((result) => {
-                        // console.log(result)
                         setItem(result)
                     })
                     .catch((error) => console.error(error));

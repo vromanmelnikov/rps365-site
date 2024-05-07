@@ -3,6 +3,7 @@ import mainPageStyles from '../main.module.scss'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Image from 'next/image'
 import { STATIC_URL } from 'shared/api.config';
+import Link from 'next/link';
 
 export default function PopularGoods({ items }) {
 
@@ -19,13 +20,13 @@ export default function PopularGoods({ items }) {
                                     <figure>
                                         <Image src={`${STATIC_URL}/${item.types[0].images[0].url}`} width={512} height={0} alt="Shoes"></Image>
                                     </figure>
-                                    <div className="card-body">
+                                    <Link href={`/product/${item.id}`} className="card-body">
                                         <h2 className="card-title">{item.title}</h2>
                                         <p>{item.subtitle}</p>
                                         <div className="card-actions justify-end">
                                             <button className="btn btn-primary">{item.typesCosts.min} - {item.typesCosts.max} руб.</button>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                             )
                         })
