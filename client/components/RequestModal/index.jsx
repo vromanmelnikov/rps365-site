@@ -107,6 +107,7 @@ export default function RequestModal() {
                 setSending(false);
                 document.getElementById("requestModal").close();
                 alertService.openAlert("requestAlert");
+                onDialogClose()
             })
             .catch((error) => {
                 setSending(false);
